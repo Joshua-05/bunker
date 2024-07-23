@@ -1,0 +1,72 @@
+export const users = [
+    {
+      "_id": "66929ea8ba5fd9960fc7cd84",
+      "index": 0,
+      "guid": "c348c6ad-4cda-47ac-9375-799c79036da8",
+      "isActive": false,
+      "balance": "$2,046.48",
+      "picture": "http://placehold.it/32x32",
+      "age": 25,
+      "name": "Janis Nunez",
+      "gender": "female",
+      "email": "janisnunez@applideck.com",
+      "phone": "+7 (876) 512-3619",
+      "address": "640 Belmont Avenue, Holtville, Vermont, 5952"
+    },
+    {
+      "_id": "66929ea89ee1e32ea1bd42d6",
+      "index": 1,
+      "guid": "9ab1fdf0-d162-434d-aedc-4a27116613d7",
+      "isActive": true,
+      "balance": "$3,512.18",
+      "picture": "http://placehold.it/32x32",
+      "age": 30,
+      "name": "Leon Puckett",
+      "gender": "male",
+      "email": "leonpuckett@applideck.com",
+      "phone": "+7 (857) 536-3680",
+      "address": "243 Cox Place, Boling, New Hampshire, 711"
+    },
+    {
+      "_id": "66929ea8220e2885dfcf7854",
+      "index": 2,
+      "guid": "3c10922a-80d0-4fcb-8276-ce235af6e30e",
+      "isActive": true,
+      "balance": "$1,037.96",
+      "picture": "http://placehold.it/32x32",
+      "age": 39,
+      "name": "Tonya Morrison",
+      "gender": "female",
+      "email": "tonyamorrison@applideck.com",
+      "phone": "+7 (868) 600-2044",
+      "address": "233 Polar Street, Adamstown, North Carolina, 4431"
+    },
+    {
+      "_id": "66929ea800ab3c11389c7613",
+      "index": 3,
+      "guid": "ec1c6f90-5c67-4ddb-89ac-f873588a67d5",
+      "isActive": false,
+      "balance": "$3,858.96",
+      "picture": "http://placehold.it/32x32",
+      "age": 24,
+      "name": "Robinson Harmon",
+      "gender": "male",
+      "email": "robinsonharmon@applideck.com",
+      "phone": "+7 (859) 455-2675",
+      "address": "837 Gatling Place, Websterville, Virgin Islands, 9570"
+    },
+    {
+      "_id": "66929ea8b63e083679290907",
+      "index": 4,
+      "guid": "824176bb-f0f2-4490-ad2f-ae7cd9748465",
+      "isActive": false,
+      "balance": "$2,793.58",
+      "picture": "http://placehold.it/32x32",
+      "age": 32,
+      "name": "Cherie Curtis",
+      "gender": "female",
+      "email": "cheriecurtis@applideck.com",
+      "phone": "+7 (912) 427-2959",
+      "address": "729 Eaton Court, Flintville, Michigan, 3180"
+    }
+  ]
