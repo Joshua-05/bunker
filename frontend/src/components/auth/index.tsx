@@ -4,6 +4,7 @@ import LoginPage from "./login";
 import RegisterPage from "./registr";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import { instance } from "../../utils/axios";
 
 export default function AuthRootComponent() {
 	const [email, setEmail] = useState("");
@@ -12,8 +13,12 @@ export default function AuthRootComponent() {
 
 	const handleSubmit = async (event: { preventDefault: () => void; }) => {
 		event.preventDefault()
-		console.log(email)
-		console.log(password)
+		const userData = {
+			email,
+			password
+		}
+		const user = await instance.post('auth/login', userData)
+		console.log(user.data)
 	}
 
 	return (
