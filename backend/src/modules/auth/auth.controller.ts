@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDTO } from '../user/dto';
 import { UserLoginDTO } from './dto';
@@ -12,13 +12,15 @@ export class AuthController {
 
   @ApiTags('API')
   @ApiResponse({ status: 201, type: CreateUserDTO })
+  @HttpCode(201)
   @Post('register')
-  register(@Body() dto: CreateUserDTO): Promise<CreateUserDTO> {
+  register(@Body() dto: CreateUserDTO): Promise<AuthUserResponse> {
     return this.authService.registrUser(dto);
   }
 
   @ApiTags('API')
   @ApiResponse({ status: 200, type: AuthUserResponse })
+  @HttpCode(200)
   @Post('login')
   login(@Body() dto: UserLoginDTO): Promise<AuthUserResponse> {
     return this.authService.loginUser(dto);
