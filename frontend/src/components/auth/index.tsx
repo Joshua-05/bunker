@@ -46,7 +46,9 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 					password
 				};
 				const newUser = await instance.post("auth/register", userData);
-				console.log(newUser.data);
+				await dispatch(login(newUser.data))
+				console.log(newUser.data.dataValues.firstName)
+				navigate('/menu')
 			} else {
 				throw new Error(AppErrors.PasswordDoNotMatch)
 			}
