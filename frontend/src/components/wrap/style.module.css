@@ -1,0 +1,47 @@
+header{
+    align-items: center;
+    margin: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    border-bottom: 1px solid blue;
+}
+
+.logo{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+}
+
+.nav{
+    display: flex;
+}
+
+.nav_but{
+    margin-left: 8px;
+    border: none;
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.nav_but:hover{
+    background-color: #e6e6e6;
+    cursor: pointer;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 99%;
+}

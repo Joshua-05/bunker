@@ -7,6 +7,7 @@ import { useState } from "react";
 import { instance } from "../../utils/axios";
 import { useAppDispatch } from "../../utils/hook";
 import { login } from "../../store/slice/auth";
+import { AppErrors } from "../../common/errors";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
 	const [email, setEmail] = useState("");
@@ -29,6 +30,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 				};
 				const user = await instance.post("auth/login", userData);
 				await dispatch(login(user.data))
+				console.log(user.data.dataValues.firstName)
 				navigate('/menu')
 			} catch (e) {
 				return e
@@ -46,7 +48,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 				const newUser = await instance.post("auth/register", userData);
 				console.log(newUser.data);
 			} else {
-				throw new Error('Пароли не совпадают')
+				throw new Error(AppErrors.PasswordDoNotMatch)
 			}
 		}
 	};

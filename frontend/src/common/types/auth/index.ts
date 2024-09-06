@@ -10,3 +10,17 @@ export interface IPropsRegister {
     setPassword: (value: string) => void
     setRepeatPassword: (value: string) => void
 }
+
+export interface IAuthState {
+    user: IPublicUser,
+    isLogged: boolean
+}
+
+export interface IPublicUser {
+    id: number | null,
+    firstName: string,
+    username: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string
+}

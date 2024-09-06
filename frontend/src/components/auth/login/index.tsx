@@ -1,6 +1,8 @@
 import { TextField, Button, Typography } from "@mui/material";
 import style from "../style.module.css";
 import { IPropsLogin } from "../../../common/types/auth";
+import { Link } from "react-router-dom";
+
 
  const LoginPage : React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
 	const { setEmail, setPassword } = props;
@@ -48,7 +50,7 @@ import { IPropsLogin } from "../../../common/types/auth";
 			</Button>
 			<Typography variant="body1" sx={{ fontFamily: "Poppins" }}>
 				У вас нет аккаунта?{" "}
-				<span className={style.incitingText}>Зарегистрируйся</span>{" "}
+				<Link to="/registr"><span className={style.incitingText}>Зарегистрируйся</span>{" "}</Link>
 			</Typography>
 		</>
 	);

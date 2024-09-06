@@ -1,0 +1,19 @@
+.main{
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 5px auto;
+    width: inherit;
+    height: max-content;
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    gap: 20px;
+    justify-content: space-evenly;
+}
+
+.card{
+    box-sizing: border-box;
+    width: 400px;
+    height: 600px;
+    border: 1px solid black;
+    text-align: center;
+}

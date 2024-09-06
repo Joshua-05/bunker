@@ -8,6 +8,7 @@ import configurations from '../../configurations';
 import { User } from '../user/models/user.model';
 import { AuthModule } from '../auth/auth.module';
 import { TokenModule } from '../token/token.module';
+import { LobbiModule } from '../lobbi/lobbi.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { TokenModule } from '../token/token.module';
     }),
     UserModule,
     AuthModule,
-    TokenModule
+    TokenModule,
+    LobbiModule
   ],
   controllers: [AppController],
   providers: [AppService],
