@@ -7,7 +7,7 @@ const RegisterPage: React.FC<IPropsRegister> = (props: IPropsRegister) : JSX.Ele
 	const {setFirstName, setUsername, setEmail, setPassword, setRepeatPassword} = props
 	return (
 		<>
-			<Typography variant="h2" fontFamily={"Poppins"} textAlign={"center"}>
+			<Typography variant="h1" fontFamily={"Poppins"} textAlign={"center"}>
 				Регистрация
 			</Typography>
 			<Typography

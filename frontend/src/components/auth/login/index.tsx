@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 	const { setEmail, setPassword } = props;
 	return (
 		<>
-			<Typography variant="h2" fontFamily={"Poppins"} textAlign={"center"}>
+			<Typography variant="h1" fontFamily={"Poppins"} textAlign={"center"}>
 				Авторизация
 			</Typography>
 			<Typography

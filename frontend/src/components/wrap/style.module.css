@@ -4,7 +4,7 @@ header{
     display: flex;
     justify-content: space-between;
     height: 60px;
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid ;
 }
 
 .logo{
