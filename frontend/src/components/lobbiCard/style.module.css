@@ -1,0 +1,24 @@
+.card{
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 600px;
+    height: 60px;
+    padding: 8px;
+    margin-top: 20px;
+}
+
+.card button{
+    width: 80px;
+    height: 40px;
+    border: none;
+    background-color: #40fa6e;
+}
+
+.card button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}

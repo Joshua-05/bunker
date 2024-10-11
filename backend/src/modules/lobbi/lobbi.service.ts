@@ -12,9 +12,9 @@ export class LobbiService {
     async createLobbi(dto: CreateLobbiDTO): Promise<CreateLobbiDTO>{
         await this.lobbiRepository.create({
             name: dto.name,
-            participants: dto.participants,
-            space: dto.space,
+            count: dto.count,
             access: dto.access,
+            password: dto.password
         });
         return dto;
     }

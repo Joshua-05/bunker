@@ -6,11 +6,11 @@ export class Lobbi extends Model {
   name: string;
 
   @Column
-  participants: string;
-
-  @Column
-  space: string;
+  count: number;
 
   @Column
   access: string;
+
+  @Column
+  password?: string;
 }

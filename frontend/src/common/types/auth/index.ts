@@ -11,13 +11,14 @@ export interface IPropsRegister {
     setRepeatPassword: (value: string) => void
 }
 
-export interface IAuthState {
-    user: IPublicUser,
-    isLogged: boolean
+export interface UserStore {
+    userStore: IUser | null,
+    isLogged: boolean,
+    addUser: (user: IUser) => void
 }
 
-export interface IPublicUser {
-    id: number | null,
+export interface IUser {
+    id: number,
     firstName: string,
     username: string,
     email: string,

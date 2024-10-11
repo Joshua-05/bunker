@@ -1,6 +1,6 @@
 import { TextField, Button, Typography } from "@mui/material";
-import style from "../style.module.css";
-import { IPropsLogin } from "../../../common/types/auth";
+import style from "../../pages/auth/style.module.css";
+import { IPropsLogin } from "../../common/types/auth";
 import { Link } from "react-router-dom";
 
 

@@ -1,13 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import style from "./style.module.css";
-import LoginPage from "./login";
-import RegisterPage from "./registr";
+import LoginPage from "../../components/login";
+import RegisterPage from "../../components/registr";
 import { Box } from "@mui/material";
 import { useState } from "react";
 import { instance } from "../../utils/axios";
-import { useAppDispatch } from "../../utils/hook";
-import { login } from "../../store/slice/auth";
 import { AppErrors } from "../../common/errors";
+import { useUserStore } from "../../store";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
 	const [email, setEmail] = useState("");
@@ -16,8 +15,8 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 	const [username, setUsername] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
 	const location = useLocation();
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const addUser = useUserStore(state => state.addUser)
 
 
 	const handleSubmit = async (event: { preventDefault: () => void }) => {
@@ -29,9 +28,9 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 					password,
 				};
 				const user = await instance.post("auth/login", userData);
-				await dispatch(login(user.data))
-				console.log(user.data.dataValues.firstName)
-				navigate('/menu')
+				addUser(user.data.dataValues)
+				console.log(user.data.dataValues)
+				navigate('/')
 			} catch (e) {
 				return e
 			}
@@ -45,10 +44,9 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 					email,
 					password
 				};
-				const newUser = await instance.post("auth/register", userData);
-				await dispatch(login(newUser.data))
-				console.log(newUser.data.dataValues.firstName)
-				navigate('/menu')
+				const user = await instance.post("auth/register", userData);
+				addUser(user.data.dataValues)
+				navigate('/')
 			} else {
 				throw new Error(AppErrors.PasswordDoNotMatch)
 			}

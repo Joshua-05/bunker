@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Header, Footer } from "../wrap/wrap"
+import { Header, Footer } from "../../components/wrap/wrap"
 import style from "./style.module.css"
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material"
 import { useState } from "react"

@@ -1,14 +1,24 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authSlice  from "./slice/auth";
+import { create } from "zustand";
+import {IUser, UserStore } from "../common/types/auth";
+import { ILobbi, LobbiStore } from "../common/types/lobbi";
 
-
-const store = configureStore({
-    reducer: {
-        auth: authSlice
+export const useUserStore = create<UserStore>((set) => ({
+    userStore: null,
+    isLogged: false,
+    addUser: (user: IUser) => {
+        set({
+            userStore: user,
+            isLogged: true
+        })
     }
-})
+}))
 
-export type AppDispatch = typeof store.dispatch
-export type RootState = ReturnType<typeof store.getState>
-
-export default store
+export const useLobbiStore = create<LobbiStore>((set, get) => ({
+    lobbiStore: [],
+    addLobbi: (lobbi: ILobbi[]) => {
+        const {lobbiStore} = get();
+        set({
+            lobbiStore: [...lobbiStore,...lobbi]
+        })
+    }
+}))

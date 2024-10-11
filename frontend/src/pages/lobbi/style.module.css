@@ -1,6 +1,5 @@
 main{
-    border: 1px solid black;
-    border-radius: 5px;
+    
     box-sizing: border-box;
     margin: 5px 10%;
     width: inherit;
@@ -10,6 +9,12 @@ main{
 .box{
     margin: 10px auto;
     text-align: center;
+    
+}
+
+.lobbiList{
+     width: 600px;
+     margin: 10px auto;
 }
 
 .box h1{

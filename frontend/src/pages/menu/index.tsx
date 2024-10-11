@@ -1,4 +1,4 @@
-import { Footer, Header } from "../wrap/wrap";
+import { Footer, Header } from "../../components/wrap/wrap";
 
 
 const MenuPage = () => {
