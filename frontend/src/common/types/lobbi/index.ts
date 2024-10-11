@@ -1,6 +1,7 @@
 export interface LobbiStore {
     lobbiStore: ILobbi[],
     addLobbi: (lobbi: ILobbi[]) => void
+    resetLobbi: () => void
 }
 
 export interface ILobbi {

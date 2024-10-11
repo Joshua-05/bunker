@@ -17,8 +17,14 @@ export const useLobbiStore = create<LobbiStore>((set, get) => ({
     lobbiStore: [],
     addLobbi: (lobbi: ILobbi[]) => {
         const {lobbiStore} = get();
+        
         set({
             lobbiStore: [...lobbiStore,...lobbi]
         })
+    },
+    resetLobbi: () => {
+        set({lobbiStore: []})
     }
 }))
+
+// 

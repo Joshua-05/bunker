@@ -9,10 +9,11 @@ import LobbiCard  from "../../components/lobbiCard"
 const LobbiPage = () => {
     const addLobbi = useLobbiStore(state => state.addLobbi);
     const lobbiStore = useLobbiStore(state => state.lobbiStore);
-
+    const reset = useLobbiStore(state => state.resetLobbi)
     useLayoutEffect(() => {
         const fetchLobbi = async () => {
             try {
+                reset();
                 const response = await instance.get("lobbi/getAll");
                 const lobbi = response.data; 
                 addLobbi(lobbi);
@@ -20,9 +21,8 @@ const LobbiPage = () => {
                 console.error("Ошибка при получении лобби:", error);
             }
         };
-
         fetchLobbi();
-    }, [addLobbi]);
+    }, [reset, addLobbi]);
     
     console.log(lobbiStore);
     

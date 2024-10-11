@@ -9,8 +9,8 @@ export default function LobbiCard({lobbi}: ILobbiProps) {
     return (
         <div className={style.card}>
             <p>{lobbi.name}</p>
-            <p>4/8</p>
-            <span>Access</span>
+            <p>4/{lobbi.count}</p>
+            <span>{lobbi.access}</span>
             <button>Enter</button>
         </div>
     )
