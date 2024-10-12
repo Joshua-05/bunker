@@ -19,6 +19,7 @@ a{
 
 .nav{
     display: flex;
+    margin-left: 70px;
 }
 
 .nav_but{
@@ -30,13 +31,46 @@ a{
 }
 
 .nav_but:hover{
-    background-color: #e6e6e6;
+    transform: scale(1.1);
+    transition: 0.1s;
     cursor: pointer;
 }
 
 .profile{
     display: flex;
     align-items: center;
+}
+
+.profile p{
+    margin-right: 10px;
+}
+
+
+.btn_in{
+    width: 80px;
+    height: 30px;
+    border: none;
+    margin-right: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color: rgb(123, 255, 123);
+}
+
+.btn_up{
+    width: 80px;
+    height: 30px;
+    border: 1px solid #1d1d1d;
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.sign button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.1s;
 }
 
 footer{

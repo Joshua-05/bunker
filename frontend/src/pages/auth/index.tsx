@@ -7,6 +7,7 @@ import { useState } from "react";
 import { instance } from "../../utils/axios";
 import { AppErrors } from "../../common/errors";
 import { useUserStore } from "../../store";
+import { Header } from "../../components/wrap/wrap";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
 	const [email, setEmail] = useState("");
@@ -54,6 +55,8 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 	};
 
 	return (
+		<>
+		<Header />
 		<div className={style.root}>
 			<form className={style.form} onSubmit={handleSubmit}>
 				<Box
@@ -81,6 +84,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 				</Box>
 			</form>
 		</div>
+		</>
 	);
 };
 

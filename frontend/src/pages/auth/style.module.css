@@ -2,8 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    height: 100vh;
+    padding-top: 100px;
+    /* width: 100vw;
+    height: 100vh; */
     /* background-color: #242424;
     color: aqua; */
 }

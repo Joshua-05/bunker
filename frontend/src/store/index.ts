@@ -22,9 +22,9 @@ export const useLobbiStore = create<LobbiStore>((set, get) => ({
             lobbiStore: [...lobbiStore,...lobbi]
         })
     },
-    resetLobbi: () => {
-        set({lobbiStore: []})
-    }
-}))
+    resetLobbi: () => 
+        set({ lobbiStore: [] }),
+    
+}));
 
 // 

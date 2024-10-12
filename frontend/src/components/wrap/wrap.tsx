@@ -1,7 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "./style.module.css"
 import {Avatar} from "@mui/material"
 import { useUserStore } from "../../store";
+
+function Profile() {
+	const user = useUserStore(state => state.userStore)
+	return(
+		<div className={style.profile}>
+			<p>Welcome, {user?.firstName}</p>
+			<Avatar src="/broken-image.jpg" />
+		</div>
+	)
+}
+
+function Sign(){
+	const nav = useNavigate()
+	const click = (path: string) => {
+		return () => {
+			nav(path)
+		}
+	}
+	return(
+		<div className={style.sign}>
+			<button className={style.btn_in} onClick={click("/login")}>Sign In</button>
+			<button className={style.btn_up} onClick={click("/registr")}>Sign Up</button>
+		</div>
+	)
+}
 
 export const Header: React.FC = () : JSX.Element => {
 	const user = useUserStore(state => state.userStore)
@@ -14,11 +39,8 @@ export const Header: React.FC = () : JSX.Element => {
 				<Link to = '/rules'><button className={style.nav_but}>ПРАВИЛА</button></Link>
 			</div>
 
+			{user ? <Profile /> : <Sign />}
 			
-			<div className={style.profile}>
-				<p>{user?.firstName}</p>
-				<Avatar src="/broken-image.jpg" />
-			</div>
 			
 		</header>
 		

@@ -23,10 +23,11 @@ export default function App() {
 									<Route path="login" element={<AuthRoot />} />
 									<Route path="registr" element={<AuthRoot />} />
 									<Route path="/" element={<MenuPage />} />
+									<Route path="rules" element={<RulesPage />} />
 									<Route element={<PrivateRoute />}>
 										<Route path="lobbi" element={<LobbiPage />} />
 										<Route path="lobbi-create" element={<CreateLobbiPage />} />
-										<Route path="rules" element={<RulesPage />} />
+										
 									</Route>
 								</Routes>
 							</LayoutComponent>
