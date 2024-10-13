@@ -1,29 +1,39 @@
 import { Link } from "react-router-dom"
 import { Header, Footer } from "../../components/wrap/wrap"
 import style from "./style.module.css"
-import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material"
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import { useState } from "react"
+import { instance } from "../../utils/axios"
+import { useLobbiStore } from "../../store"
 
 export default function CreateLobbiPage() {
+    const [name, setName] = useState('');
     const [count, setCount] = useState('');
     const [access, setAccess] = useState('');
+    const [password, setPassword] = useState('');
+    const addLobbi = useLobbiStore(state => state.addLobbi)
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setCount(event.target.value)
-        console.log(count)
-    }
 
-    const handleAccessChange = (event: SelectChangeEvent) => {
-        setAccess(event.target.value)
-        console.log(access)
-    }
-
+    const handleSubmit = async (event: { preventDefault: () => void }) => {
+		event.preventDefault();
+            const lobbiData = {
+                name,
+                count,
+                access,
+                password,
+            };
+            const lobbi = await instance.post("lobbis/create", lobbiData);
+            addLobbi(lobbi.data.dataValues)
+            // console.log(user.data.dataValues)
+            // navigate('/')
+		}
+        
     return(
         <>
             <Header />
             <div className={style.box}>
                 <h1>Создать лобби</h1><Link to = '/lobbi'><button>Watch lobbi</button><br /></Link>
-                <form>
+                <form  onSubmit={handleSubmit}>
                     <Box
                         display="flex"
                         justifyContent="center"
@@ -35,7 +45,12 @@ export default function CreateLobbiPage() {
                         borderRadius={5}
                         boxShadow={"5px 5px 10px #ccc"}
                     >
-                        <TextField id="outlined-basic" fullWidth={true}	margin={"normal"} label="Name lobbi" variant="outlined" />
+                        <TextField 
+                            id="outlined-basic" fullWidth={true}	
+                            margin={"normal"} label="Name lobbi" 
+                            variant="outlined" 
+                            onChange={(event) => setName(event.target.value)}
+                        />
                         <FormControl fullWidth margin={"normal"}>
                             <InputLabel id="demo-simple-select-label">Number of players</InputLabel>
                             <Select
@@ -43,7 +58,7 @@ export default function CreateLobbiPage() {
                                 id="demo-simple-select"
                                 value={count}
                                 label="Number of players"
-                                onChange={handleChange}
+                                onChange={(event) => setCount(event.target.value)}
                             >
                                 <MenuItem value={8}>Восемь</MenuItem>
                                 <MenuItem value={10}>Десять</MenuItem>
@@ -58,14 +73,27 @@ export default function CreateLobbiPage() {
                                 id="simple-select"
                                 value={access}
                                 label="Access"
-                                onChange={handleAccessChange}
+                                onChange={(event) => setAccess(event.target.value)}
                             >
                                 <MenuItem value={'private'}>Приватный</MenuItem>
                                 <MenuItem value={'public'}>Публичный</MenuItem>
                             </Select>
                         </FormControl>
 
-                        {access === "private" ? <TextField type="password" fullWidth={true}	margin={"normal"} label="Password" variant="outlined" /> : null}
+                        {access === "private" ? <TextField type="password" fullWidth={true}	margin={"normal"} label="Password" variant="outlined" onChange={(event) => setPassword(event.target.value)}/> : null}
+
+                        <Button
+                            type="submit"
+                            sx={{
+                                fontFamily: "Poppins",
+                                marginTop: 2,
+                                marginBottom: 2,
+                                width: "60%",
+                            }}
+                            variant="contained"
+                        >
+                            Create
+                        </Button>
                         
                         
                     </Box>

@@ -7,14 +7,14 @@ import { Link } from "react-router-dom"
 import LobbiCard  from "../../components/lobbiCard"
 import { ILobbi } from "../../common/types/lobbi"
 
-const LobbiPage = () => {
+const LobbiListPage = () => {
     const addLobbi = useLobbiStore(state => state.addLobbi);
     const lobbiStore = useLobbiStore(state => state.lobbiStore);
     const reset = useLobbiStore(state => state.resetLobbi)
     useLayoutEffect(() => {
         const fetchLobbi = async () => {
             reset();
-            const response = await instance.get("lobbi/getAll");
+            const response = await instance.get("lobbis/getAll");
             const lobbi: ILobbi[] = response.data; 
             addLobbi(lobbi);
         };
@@ -44,4 +44,4 @@ const LobbiPage = () => {
     )
 }
 
-export default LobbiPage
+export default LobbiListPage

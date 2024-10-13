@@ -18,8 +18,12 @@ export const useLobbiStore = create<LobbiStore>((set, get) => ({
     addLobbi: (lobbi: ILobbi[]) => {
         const {lobbiStore} = get();
         
+        const existingIds = new Set(lobbiStore.map(item => item.id));
+
+        const uniqueLobbi = lobbi.filter(item => !existingIds.has(item.id));
+
         set({
-            lobbiStore: [...lobbiStore,...lobbi]
+            lobbiStore: [...lobbiStore, ...uniqueLobbi]
         })
     },
     resetLobbi: () => 
