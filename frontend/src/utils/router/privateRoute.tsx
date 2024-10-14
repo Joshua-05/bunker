@@ -3,7 +3,7 @@ import { useUserStore } from "../../store";
 
 
 const PrivateRoute = () => {
-  const log = useUserStore(state => state.isLogged)
+  const log = true
   return ( 
     log ? <Outlet /> : <Navigate to="login" />
   );

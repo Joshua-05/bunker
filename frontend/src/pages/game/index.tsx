@@ -1,13 +1,10 @@
 
-
  const GamePage = () => {
+
     return(
         <>
             <div>
-                its lobbi number x
-            </div>
-            <div>
-                slut
+                <h2>Gitler</h2>
             </div>
         </>
     )
