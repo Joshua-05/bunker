@@ -3,12 +3,12 @@ import { io } from "socket.io-client";
 import style from "./style.module.css"
 import { useUserStore } from "../../store";
 
-const socket = io("http://localhost:3000");
 interface IMessage {
     sender: string;
     text: string;
 }
 
+const socket = io(`http://localhost:3000`);
 const Chat = () => {
     const user = useUserStore(state => state.userStore)
     const [messages, setMessages] = useState<IMessage[]>([]);

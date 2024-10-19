@@ -3,9 +3,9 @@ import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway({
   cors: {
-    origin: 'http://localhost:5173', // Укажите URL вашего клиента
-    methods: ['GET', 'POST'],         // Разрешенные методы
-    credentials: true,                 // Разрешение на использование куки или авторизации (если необходимо)
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST'],         
+    credentials: true,                 
   },
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -22,6 +22,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     @SubscribeMessage('message')
     handleMessage(client: Socket, payload: { sender: string; text: string }): void {
-        this.server.emit('message', payload); // Отправка сообщения всем подключенным клиентам
+        this.server.emit('message', payload);
     }
 }

@@ -4,12 +4,21 @@ import {Avatar} from "@mui/material"
 import { useUserStore } from "../../store";
 
 function Profile() {
+	const nav = useNavigate()
 	const user = useUserStore(state => state.userStore)
+	const exit = useUserStore(state => state.reset)
+	const exits = () => {
+		exit();
+		nav("/login")
+	}
 	return(
+		<>
 		<div className={style.profile}>
 			<p>Welcome, {user?.firstName}</p>
 			<Avatar src="/broken-image.jpg" />
+			<button onClick={exits}>Exit</button>
 		</div>
+		</>
 	)
 }
 

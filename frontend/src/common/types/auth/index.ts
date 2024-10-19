@@ -14,7 +14,8 @@ export interface IPropsRegister {
 export interface UserStore {
     userStore: IUser | null,
     isLogged: boolean,
-    addUser: (user: IUser) => void
+    addUser: (user: IUser) => void,
+    reset: () => void
 }
 
 export interface IUser {
