@@ -1,31 +1,37 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Header, Footer } from "../../components/wrap/wrap"
 import style from "./style.module.css"
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import { useState } from "react"
 import { instance } from "../../utils/axios"
-import { useLobbiStore } from "../../store"
+// import { useLobbiStore } from "../../store"
 
 export default function CreateLobbiPage() {
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [count, setCount] = useState('');
     const [access, setAccess] = useState('');
     const [password, setPassword] = useState('');
-    const addLobbi = useLobbiStore(state => state.addLobbi)
+    // const addLobbi = useLobbiStore(state => state.addLobbi)
 
 
     const handleSubmit = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
+        const current = 1
             const lobbiData = {
                 name,
+                current,
                 count,
                 access,
                 password,
             };
-            const lobbi = await instance.post("lobbis/create", lobbiData);
-            addLobbi(lobbi.data.dataValues)
-            // console.log(user.data.dataValues)
-            // navigate('/')
+            try {
+                const lobbi = await instance.post("lobbis/create", lobbiData);
+                console.log(lobbi);
+                navigate(`/game/${lobbi.data.id}`)
+            } catch (error) {
+                console.error("Error creating lobby:", error);
+            }
 		}
         
     return(

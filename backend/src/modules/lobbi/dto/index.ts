@@ -8,6 +8,10 @@ export class CreateLobbiDTO {
 
   @ApiProperty()
   @IsNumber()
+  current: number;
+
+  @ApiProperty()
+  @IsNumber()
   count: number;
 
   @ApiProperty()

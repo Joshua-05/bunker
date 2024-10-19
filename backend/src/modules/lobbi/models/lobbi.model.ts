@@ -6,6 +6,9 @@ export class Lobbi extends Model {
   name: string;
 
   @Column
+  current: number;
+
+  @Column
   count: number;
 
   @Column

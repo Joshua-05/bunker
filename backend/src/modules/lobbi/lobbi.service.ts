@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Lobbi } from './models/lobbi.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateLobbiDTO } from './dto';
+import { where } from 'sequelize';
 
 @Injectable()
 export class LobbiService {
@@ -10,15 +11,23 @@ export class LobbiService {
     ){}
 
     async createLobbi(dto: CreateLobbiDTO): Promise<CreateLobbiDTO>{
-        await this.lobbiRepository.create({
+        const lobbi = await this.lobbiRepository.create({
             name: dto.name,
+            current: dto.current,
             count: dto.count,
             access: dto.access,
             password: dto.password
         });
-        return dto;
+        return lobbi;
     }
     async findAllLobbi(){
         return this.lobbiRepository.findAll();
+    }
+    async findOneLobbi(id: number){
+        const lobbi = await this.lobbiRepository.findOne({where: {id: id}});
+        if(!lobbi){
+            throw new NotFoundException(`Lobby with ID ${id} not found`);
+        }
+        return lobbi;  
     }
 }

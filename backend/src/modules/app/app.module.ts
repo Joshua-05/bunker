@@ -9,6 +9,7 @@ import { User } from '../user/models/user.model';
 import { AuthModule } from '../auth/auth.module';
 import { TokenModule } from '../token/token.module';
 import { LobbiModule } from '../lobbi/lobbi.module';
+import { ChatGateway } from 'src/websocket/chat/chat.gateway';
 
 @Module({
   imports: [
@@ -37,6 +38,6 @@ import { LobbiModule } from '../lobbi/lobbi.module';
     LobbiModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ChatGateway],
 })
 export class AppModule {}

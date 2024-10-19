@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 import { LobbiService } from './lobbi.service';
 import { CreateLobbiDTO } from './dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -21,5 +21,13 @@ export class LobbiController {
     @Get('getAll')
     getAll(){
         return this.lobbiService.findAllLobbi()
+    }
+
+    @ApiTags('API')
+    @ApiResponse({ status: 200, type: CreateLobbiDTO  })
+    @HttpCode(200)
+    @Get('getOne/:id')
+    getOne(@Param('id') id: number){
+        return this.lobbiService.findOneLobbi(id)
     }
 }

@@ -23,7 +23,7 @@ export default function LobbiCard({lobbi}: ILobbiProps) {
         <>
             <div className={style.card}>
                 <p>{lobbi.name}</p>
-                <p>4/{lobbi.count}</p>
+                <p>{lobbi.current}/{lobbi.count}</p>
                 <span>{lobbi.access}</span>
                 <button onClick={Clicked}>Enter</button>
             </div>
