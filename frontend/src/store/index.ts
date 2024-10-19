@@ -28,6 +28,10 @@ export const useLobbiStore = create<LobbiStore>((set, get) => ({
     },
     resetLobbi: () => 
         set({ lobbiStore: [] }),
+    findLobbi: (id: number) => {
+        const { lobbiStore } = get();
+        return lobbiStore.find(item => item.id == id)
+    }
     
 }));
 

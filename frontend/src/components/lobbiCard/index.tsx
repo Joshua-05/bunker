@@ -16,8 +16,8 @@ export default function LobbiCard({lobbi}: ILobbiProps) {
     const nav = useNavigate()
     const Clicked = () => {
         lobbi.password
-        ? (setFlag(true), pas === lobbi.password && nav("/game"))
-        : nav("/game")
+        ? (setFlag(true), pas === lobbi.password && nav(`/game/${lobbi.id}`))
+        : nav(`/game/${lobbi.id}`)
     }
     return (
         <>

@@ -29,7 +29,7 @@ export default function App() {
 									<Route element={<PrivateRoute />}>
 										<Route path="lobbi" element={<LobbiListPage />} />
 										<Route path="lobbi-create" element={<CreateLobbiPage />} />
-										<Route path="game" element={<GamePage />} />
+										<Route path="game/:lobbyId" element={<GamePage />} />
 									</Route>
 								</Routes>
 							</LayoutComponent>
