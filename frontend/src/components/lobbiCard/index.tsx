@@ -4,6 +4,7 @@ import { ILobbi } from "../../common/types/lobbi"
 import style from "./style.module.css"
 import ModalPassword from "../modalPassword/index.tsx"
 import { useState } from "react"
+import { instance } from "../../utils/axios/index.ts"
 
 interface ILobbiProps{
     lobbi: ILobbi
@@ -14,10 +15,14 @@ export default function LobbiCard({lobbi}: ILobbiProps) {
     const [pas, setPas] = useState('')
 
     const nav = useNavigate()
-    const Clicked = () => {
+    const Clicked = async() => {
         lobbi.password
-        ? (setFlag(true), pas === lobbi.password && nav(`/game/${lobbi.id}`))
-        : nav(`/game/${lobbi.id}`)
+        ? (setFlag(true), pas === lobbi.password && 
+            await instance.put(`lobbis/lobbiCurrent/${lobbi.id}`, {action: 'increment'}),
+            nav(`/game/${lobbi.id}`)
+        )
+        :   await instance.put(`lobbis/lobbiCurrent/${lobbi.id}`, {action: 'increment'}),
+            nav(`/game/${lobbi.id}`)
     }
     return (
         <>

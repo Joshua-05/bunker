@@ -7,7 +7,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: ['http://localhost:5173']
+      origin: ['http://localhost:5173', 'http://26.207.11.211:5173/']
     }
   });
   const configservice = app.get(ConfigService);

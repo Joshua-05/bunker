@@ -30,4 +30,17 @@ export class LobbiService {
         }
         return lobbi;  
     }
+    async updateCurrent(id: number, action: 'descrement' | 'increment'){
+        const lobbi = await this.lobbiRepository.findOne({where: {id: id}});
+        if(!lobbi){
+            throw new NotFoundException(`Lobby with ID ${id} not found`);
+        }
+        if (action === 'increment') {
+            lobbi.current += 1
+        } else if (action === 'descrement') {
+            lobbi.current -= 1
+        }
+        await lobbi.save()
+        return lobbi
+    }
 }
