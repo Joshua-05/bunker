@@ -38,7 +38,7 @@ const GamePage = () => {
                     <>
                         <h1>{lobbi.name}</h1>
                         <button onClick={Click}>Выход</button>
-                        <Chat />
+                        <Chat lobbyId = {lobbyId}/>
                     </>
                 ) : (
                     <p>Загрузка лобби...</p>

@@ -40,7 +40,12 @@ export class LobbiService {
         } else if (action === 'descrement') {
             lobbi.current -= 1
         }
-        await lobbi.save()
-        return lobbi
+        if (lobbi.current == 0){
+            lobbi.destroy()
+            return { message: "Lobby deleted" }
+        } else {
+            await lobbi.save()
+            return lobbi
+        } 
     }
 }

@@ -14,7 +14,7 @@ function Profile() {
 	return(
 		<>
 		<div className={style.profile}>
-			<p>Welcome, {user?.firstName}</p>
+			<p>{user?.firstName}</p>
 			<Avatar src="/broken-image.jpg" />
 			<button onClick={exits}>Exit</button>
 		</div>
