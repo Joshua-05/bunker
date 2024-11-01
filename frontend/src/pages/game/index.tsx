@@ -21,8 +21,7 @@ const GamePage = () => {
         const fetch = async () => {
             try {
                 const res = await instance.get(`lobbis/getOne/${lobbyId}`)
-                // console.log("Результат возврата: ",res);
-                
+                await instance.put(`lobbis/lobbiCurrent/${lobbyId}`, {action: 'increment'})
                 setLobbi(res.data)
             } catch (error) {
                 console.error("Ошибка получения лобби:", error)

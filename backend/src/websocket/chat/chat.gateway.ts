@@ -20,10 +20,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         console.log('Client disconnected:', client.id);
     }
 
-    // @SubscribeMessage('message')
-    // handleMessage(client: Socket, payload: { sender: string; text: string }): void {
-    //     this.server.emit('message', payload);
-    // }
     @SubscribeMessage('joinLobby') 
     handleJoinLobby(client: Socket, lobbyId: string): void {
         client.join(lobbyId);

@@ -21,8 +21,6 @@ const LobbiListPage = () => {
         fetchLobbi();
     }, [reset, addLobbi]);
     
-    // console.log(lobbiStore);
-    
 
     return(
         <>

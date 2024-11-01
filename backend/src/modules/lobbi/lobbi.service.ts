@@ -21,7 +21,11 @@ export class LobbiService {
         return lobbi;
     }
     async findAllLobbi(){
-        return this.lobbiRepository.findAll();
+        return this.lobbiRepository.findAll({
+            order: [
+                ['id', 'ASC']
+            ]
+        });
     }
     async findOneLobbi(id: number){
         const lobbi = await this.lobbiRepository.findOne({where: {id: id}});
