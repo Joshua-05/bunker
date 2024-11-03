@@ -5,11 +5,14 @@ import { UserModule } from '../user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import configurations from '../../configurations';
-import { User } from '../user/models/user.model';
 import { AuthModule } from '../auth/auth.module';
 import { TokenModule } from '../token/token.module';
 import { LobbiModule } from '../lobbi/lobbi.module';
-import { ChatGateway } from 'src/websocket/chat/chat.gateway';
+import { ChatGateway } from 'src/websocket/Gateway/chat.gateway';
+
+import { User } from '../user/models/user.model';
+import { Lobbi } from '../lobbi/models/lobbi.model';
+import { UserLobby } from '../lobbi/models/userLobby.model';
 
 @Module({
   imports: [
@@ -29,7 +32,7 @@ import { ChatGateway } from 'src/websocket/chat/chat.gateway';
         database: configservice.get('db_name'),
         synchronize: true,
         autoLoadModels: true,
-        models: [User]
+        models: [User, Lobbi, UserLobby]
       })
     }),
     UserModule,

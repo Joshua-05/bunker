@@ -17,7 +17,7 @@ export default function CreateLobbiPage() {
 
     const handleSubmit = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
-        const current = 1
+        const current = 0
             const lobbiData = {
                 name,
                 current,
@@ -27,7 +27,7 @@ export default function CreateLobbiPage() {
             };
             try {
                 const lobbi = await instance.post("lobbis/create", lobbiData);
-                console.log(lobbi);
+                // console.log(lobbi);
                 navigate(`/game/${lobbi.data.id}`)
             } catch (error) {
                 console.error("Error creating lobby:", error);

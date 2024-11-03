@@ -3,11 +3,14 @@ import { Lobbi } from './models/lobbi.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateLobbiDTO } from './dto';
 import { where } from 'sequelize';
+import { UserLobby } from './models/userLobby.model';
+import { User } from '../user/models/user.model';
 
 @Injectable()
 export class LobbiService {
     constructor(
         @InjectModel(Lobbi) private readonly lobbiRepository: typeof Lobbi,
+        @InjectModel(UserLobby) private readonly userLobbiRepository: typeof UserLobby
     ){}
 
     async createLobbi(dto: CreateLobbiDTO): Promise<CreateLobbiDTO>{
@@ -34,22 +37,42 @@ export class LobbiService {
         }
         return lobbi;  
     }
-    async updateCurrent(id: number, action: 'descrement' | 'increment'){
+    async updateCurrent(id: number, action: 'descrement' | 'increment', userId: number){
         const lobbi = await this.lobbiRepository.findOne({where: {id: id}});
+
         if(!lobbi){
             throw new NotFoundException(`Lobby with ID ${id} not found`);
         }
-        if (action === 'increment') {
-            lobbi.current += 1
-        } else if (action === 'descrement') {
-            lobbi.current -= 1
+
+        switch(action){
+            case 'increment':
+                if (lobbi.current < lobbi.count){
+                    await this.userLobbiRepository.create({ lobbyId: id, userId: userId })
+                    lobbi.current += 1
+                    await lobbi.save()
+                    return lobbi
+                }
+                else {
+                    throw new NotFoundException(`Lobby with ID ${id} full limit`)
+                }
+            case 'descrement':
+                lobbi.current -= 1
+                const deleteUserToLobbi = await this.userLobbiRepository.findOne({where: {userId: userId} })
+                if (deleteUserToLobbi) {
+                    await deleteUserToLobbi.destroy();
+                }
+                if (lobbi.current === 0){
+                    await lobbi.destroy()
+                    return { message: "Lobby deleted" }
+                }
+                await lobbi.save()
+                return lobbi
         }
-        if (lobbi.current == 0){
-            lobbi.destroy()
-            return { message: "Lobby deleted" }
-        } else {
-            await lobbi.save()
-            return lobbi
-        } 
+    }
+    async getUsersForLobby(lobbyId: number) {
+        return UserLobby.findAll({
+            where: { lobbyId },
+            include: [User] 
+        });
     }
 }
