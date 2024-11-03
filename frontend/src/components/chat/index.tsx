@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
 import style from "./style.module.css"
 import { useUserStore } from "../../store";
+import socket from "../../utils/socket";
 
 interface IMessage {
     sender: string;
@@ -12,7 +12,7 @@ interface ChatProps{
     lobbyId: string | undefined
 }
 
-const socket = io(`http://localhost:3000`);
+
 const Chat = ({lobbyId}: ChatProps) => {
     const user = useUserStore(state => state.userStore)
     const [messages, setMessages] = useState<IMessage[]>([]);
@@ -23,9 +23,12 @@ const Chat = ({lobbyId}: ChatProps) => {
 
         socket.on('message', (message) => {
             setMessages((prev) => [...prev, message]);
+            console.log(message);
+            
         });
 
         return () => {
+            socket.off('userJoined');
             socket.off('message'); 
         };
     }, [lobbyId])
@@ -37,7 +40,7 @@ const Chat = ({lobbyId}: ChatProps) => {
     }, [messages]);
 
     const sendMessage = (messageText: string) => {
-        const message = { sender: user?.username, text: messageText, lobbyId };
+        const message = {lobbyId, sender: user?.username, text: messageText};
         socket.emit('message', message); 
     };
 

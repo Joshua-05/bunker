@@ -3,6 +3,7 @@ export interface LobbiStore {
     addLobbi: (lobbi: ILobbi[]) => void
     resetLobbi: () => void
     findLobbi: (id: number) => ILobbi | undefined
+    updateLobbi: (lobbi: ILobbi) => void
 }
 
 export interface ILobbi {

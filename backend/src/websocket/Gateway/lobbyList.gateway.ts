@@ -1,16 +1,6 @@
 import { WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-
-export interface ILobbi {
-    id: number,
-    name: string,
-    current: number,
-    count: number,
-    access: string,
-    password?: string,
-    createdAt: string,
-    updatedAt: string
-}
+import { CreateLobbiDTO } from 'src/modules/lobbi/dto';
 
 @WebSocketGateway({
     cors: {
@@ -20,16 +10,21 @@ export interface ILobbi {
     },
   })
   export class LobbyListGateway {
-      @WebSocketServer()
-      server: Server;
+    @WebSocketServer()
+    server: Server;
   
-      @SubscribeMessage('lobbyCreated')
-      handleLobbyCreated(lobby: ILobbi): void {
-      this.server.emit('lobbyCreated', lobby); 
-}
+    @SubscribeMessage('lobbyCreated')
+    handleLobbyCreated(lobby: CreateLobbiDTO): void {
+        this.server.emit('lobbyCreated', lobby); 
+    }
 
-      @SubscribeMessage('lobbyDeleted')
-      handleLobbyDeleted(lobbyId: number): void {
-      this.server.emit('lobbyDeleted', lobbyId);
+    @SubscribeMessage('lobbyUpdated')
+    handleLobbyUpdate(lobby: CreateLobbiDTO): void {
+        this.server.emit('lobbyDeleted', lobby);
+    }
+
+    @SubscribeMessage('lobbyDeleted')
+    handleLobbyDeleted(lobbyId: number): void {
+        this.server.emit('lobbyDeleted', lobbyId);
     }
   }

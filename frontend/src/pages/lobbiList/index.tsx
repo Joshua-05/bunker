@@ -6,14 +6,14 @@ import style from "./style.module.css"
 import { Link } from "react-router-dom"
 import LobbiCard  from "../../components/lobbiCard"
 import { ILobbi } from "../../common/types/lobbi"
-import { io } from "socket.io-client"
+import socket from "../../utils/socket";
 
 
-const socket = io("http://localhost:3000");
 const LobbiListPage = () => {
     const addLobbi = useLobbiStore(state => state.addLobbi);
     const lobbiStore = useLobbiStore(state => state.lobbiStore);
     const reset = useLobbiStore(state => state.resetLobbi)
+    const update = useLobbiStore(staste => staste.updateLobbi)
 
     const fetchLobbi = async () => {
         reset();
@@ -33,13 +33,19 @@ const LobbiListPage = () => {
             addLobbi(lobbi); // Добавляем новое лобби в список
         });
 
-        socket.on('lobbyDeleted', (lobbyId: number) => {
-            reset(); // Сбрасываем список лобби, если необходимо 
+        socket.on('lobbyUpdated', (lobbi: ILobbi) => {
+            // update(lobbi); //обновляем одно конкретное лобби
+            fetchLobbi(); //временное решение просто все пересчитать(дописать метод update в лобби сторе)
+        });
+
+        socket.on('lobbyDeleted', (lobbyId: number) => { //обдумать обходимость параметра
+            // reset(); // Сбрасываем список лобби, если необходимо 
             fetchLobbi(); // Или просто перерасчитываем его заново.
         });
 
         return () => {
             socket.off('lobbyCreated');
+            socket.off('lobbyUpdated');
             socket.off('lobbyDeleted');
         };
     }, [reset, addLobbi]);

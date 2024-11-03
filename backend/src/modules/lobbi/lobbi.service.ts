@@ -5,12 +5,14 @@ import { CreateLobbiDTO } from './dto';
 import { where } from 'sequelize';
 import { UserLobby } from './models/userLobby.model';
 import { User } from '../user/models/user.model';
+import { LobbyListGateway } from 'src/websocket/Gateway/lobbyList.gateway';
 
 @Injectable()
 export class LobbiService {
     constructor(
         @InjectModel(Lobbi) private readonly lobbiRepository: typeof Lobbi,
-        @InjectModel(UserLobby) private readonly userLobbiRepository: typeof UserLobby
+        @InjectModel(UserLobby) private readonly userLobbiRepository: typeof UserLobby,
+        private readonly lobbyListGateway: LobbyListGateway
     ){}
 
     async createLobbi(dto: CreateLobbiDTO): Promise<CreateLobbiDTO>{
@@ -21,6 +23,7 @@ export class LobbiService {
             access: dto.access,
             password: dto.password
         });
+        this.lobbyListGateway.server.emit('lobbyCreated', lobbi)
         return lobbi;
     }
     async findAllLobbi(){
@@ -50,6 +53,7 @@ export class LobbiService {
                     await this.userLobbiRepository.create({ lobbyId: id, userId: userId })
                     lobbi.current += 1
                     await lobbi.save()
+                    this.lobbyListGateway.server.emit('lobbyUpdated', lobbi);
                     return lobbi
                 }
                 else {
@@ -62,10 +66,12 @@ export class LobbiService {
                     await deleteUserToLobbi.destroy();
                 }
                 if (lobbi.current === 0){
+                    this.lobbyListGateway.server.emit('lobbyDeleted', lobbi.id)
                     await lobbi.destroy()
                     return { message: "Lobby deleted" }
                 }
                 await lobbi.save()
+                this.lobbyListGateway.server.emit('lobbyUpdated', lobbi);
                 return lobbi
         }
     }
