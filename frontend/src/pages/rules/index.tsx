@@ -9,10 +9,10 @@ export default function RulesPage() {
                 <div className={style.card}>1
                     <ol>
                         <li className={style.noready}>Запретить\инвиз урл</li>
-                        <li className={style.noready}>Создать таблицу многие-ко-многим для пользователей в лобби</li>
+                        <li className={style.ready}>Создать таблицу многие-ко-многим для пользователей в лобби</li>
                         <li className={style.ready}>Подписка на сокет-сервер\изоляция чата</li>
                         <li className={style.ready}>При подключении и отключении с лобби менять запись в таблице Lobbi</li>
-                        <li className={style.noready}>Повесить автозапрос на список лобби</li>
+                        <li className={style.ready}>Повесить автозапрос на список лобби</li>
                         <li className={style.noready}>В лобби отображать подключенных к нему</li>
                     </ol>
                 </div>

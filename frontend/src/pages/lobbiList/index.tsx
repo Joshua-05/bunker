@@ -13,7 +13,6 @@ const LobbiListPage = () => {
     const addLobbi = useLobbiStore(state => state.addLobbi);
     const lobbiStore = useLobbiStore(state => state.lobbiStore);
     const reset = useLobbiStore(state => state.resetLobbi)
-    const update = useLobbiStore(staste => staste.updateLobbi)
 
     const fetchLobbi = async () => {
         reset();
@@ -47,8 +46,9 @@ const LobbiListPage = () => {
             socket.off('lobbyCreated');
             socket.off('lobbyUpdated');
             socket.off('lobbyDeleted');
-        };
+        };        
     }, [reset, addLobbi]);
+    console.log(lobbiStore);
     
 
     return(

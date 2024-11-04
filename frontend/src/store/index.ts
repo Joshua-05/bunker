@@ -37,12 +37,7 @@ export const useLobbiStore = create<LobbiStore>((set, get) => ({
     findLobbi: (id: number) => {
         const { lobbiStore } = get();
         return lobbiStore.find(item => item.id == id)
-    },
-    updateLobbi: (lobbi: ILobbi) => {
-        const { lobbiStore } = get();
-        
     }
-    
 }));
 
 // 

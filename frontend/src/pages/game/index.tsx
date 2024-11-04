@@ -15,6 +15,7 @@ const GamePage = () => {
         throw new Error ('Пользователь не авторизован')
     }
     const [ lobbi, setLobbi] = useState<ILobbi | null>(null)
+    const [ userInLobby, setUserInLobby] = useState<ILobbi | null>(null)
     
     const Click = async() => {
         await instance.put(`lobbis/lobbiCurrent/${lobbyId}`, {
@@ -27,14 +28,14 @@ const GamePage = () => {
     useEffect(() => {
         const fetch = async () => {
             try {
-                
-
                 const res = await instance.get(`lobbis/getOne/${lobbyId}`)
                 setLobbi(res.data)
                 await instance.put(`lobbis/lobbiCurrent/${lobbyId}`, {
                     action: 'increment',
                     userId: user.id
                 })
+                // const resUser = await instance.get(`lobbis/getUserLobbi/${lobbyId}`)
+                // setUserInLobby(resUser.data)
             } catch (error) {
                 console.error("Ошибка получения лобби:", error)
             }
@@ -48,6 +49,7 @@ const GamePage = () => {
                 {lobbi ? (
                     <>
                         <h1>{lobbi.name}</h1>
+                        <div>{userInLobby ? <p>userInLobby</p> : <p>Нет подключенных</p>}</div>
                         <button onClick={Click}>Выход</button>
                         <Chat lobbyId = {lobbyId}/>
                     </>

@@ -61,9 +61,12 @@ export class LobbiService {
                 }
             case 'descrement':
                 lobbi.current -= 1
-                const deleteUserToLobbi = await this.userLobbiRepository.findOne({where: {userId: userId} })
+                const deleteUserToLobbi = await this.userLobbiRepository.findAll({where: {
+                    userId: userId,
+                    lobbyId: id
+                } })
                 if (deleteUserToLobbi) {
-                    await deleteUserToLobbi.destroy();
+                    await deleteUserToLobbi.map(item => item.destroy());
                 }
                 if (lobbi.current === 0){
                     this.lobbyListGateway.server.emit('lobbyDeleted', lobbi.id)
@@ -76,9 +79,15 @@ export class LobbiService {
         }
     }
     async getUsersForLobby(lobbyId: number) {
-        return UserLobby.findAll({
+        const users = await this.userLobbiRepository.findAll({
             where: { lobbyId },
-            include: [User] 
+            include: [User],
         });
+    
+        if (!users) {
+            throw new NotFoundException(`No users found for lobby ID ${lobbyId}`);
+        }
+    
+        return users; 
     }
 }
