@@ -12,7 +12,9 @@ import socket from "../../utils/socket";
 const LobbiListPage = () => {
     const addLobbi = useLobbiStore(state => state.addLobbi);
     const lobbiStore = useLobbiStore(state => state.lobbiStore);
-    const reset = useLobbiStore(state => state.resetLobbi)
+    const reset = useLobbiStore(state => state.resetLobbi);
+    const update = useLobbiStore(state => state.updateLobbi);
+    const deleteLobby = useLobbiStore(state => state.deleteLobbi)
 
     const fetchLobbi = async () => {
         reset();
@@ -24,7 +26,7 @@ const LobbiListPage = () => {
     useLayoutEffect(() => {
         
         fetchLobbi();
-    }, [reset, addLobbi]);
+    }, []);
 
     useEffect(() => {
         // Подписываемся на обновления о новых лобби
@@ -33,13 +35,14 @@ const LobbiListPage = () => {
         });
 
         socket.on('lobbyUpdated', (lobbi: ILobbi) => {
-            // update(lobbi); //обновляем одно конкретное лобби
-            fetchLobbi(); //временное решение просто все пересчитать(дописать метод update в лобби сторе)
+            update(lobbi); //обновляем одно конкретное лобби
+            // fetchLobbi(); //временное решение просто все пересчитать(дописать метод update в лобби сторе)
         });
 
         socket.on('lobbyDeleted', (lobbyId: number) => { //обдумать обходимость параметра
+            deleteLobby(lobbyId)
             // reset(); // Сбрасываем список лобби, если необходимо 
-            fetchLobbi(); // Или просто перерасчитываем его заново.
+            // fetchLobbi(); // Или просто перерасчитываем его заново.
         });
 
         return () => {
@@ -47,7 +50,7 @@ const LobbiListPage = () => {
             socket.off('lobbyUpdated');
             socket.off('lobbyDeleted');
         };        
-    }, [reset, addLobbi]);
+    }, [reset, addLobbi, update, deleteLobby]);
     console.log(lobbiStore);
     
 

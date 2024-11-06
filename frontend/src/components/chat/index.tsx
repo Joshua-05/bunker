@@ -28,7 +28,7 @@ const Chat = ({lobbyId}: ChatProps) => {
         });
 
         return () => {
-            socket.off('userJoined');
+            // socket.off('joinLobby');
             socket.off('message'); 
         };
     }, [lobbyId])

@@ -37,6 +37,19 @@ export const useLobbiStore = create<LobbiStore>((set, get) => ({
     findLobbi: (id: number) => {
         const { lobbiStore } = get();
         return lobbiStore.find(item => item.id == id)
+    },
+    updateLobbi: (lobbi: ILobbi) => {
+        const {lobbiStore} = get();
+        const update = lobbiStore.map(item => item.id === lobbi.id ? lobbi : item )
+        set({
+            lobbiStore: update
+        })
+    },
+    deleteLobbi: (lobbyId: number) => {
+        const {lobbiStore} = get();
+        set({
+            lobbiStore: lobbiStore.filter(item => item.id !== lobbyId)
+        })
     }
 }));
 
