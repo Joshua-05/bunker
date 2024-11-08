@@ -3,7 +3,7 @@ import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway({
     cors: {
-      origin: ['http://localhost:5173', 'http://26.207.11.211:5173/'],
+      origin: ['http://localhost:5173'],
       methods: ['GET', 'POST'],         
       credentials: true,                 
     },
@@ -15,7 +15,7 @@ import { Server, Socket } from 'socket.io';
       handleConnection(client: Socket) {
           console.log('Client connected:', client.id);
       }
-  
+      
       handleDisconnect(client: Socket) {
           console.log('Client disconnected:', client.id);
       }

@@ -44,7 +44,7 @@ export const Header: React.FC = () : JSX.Element => {
 		<header>
 			<div className={style.logo}><Link to = '/'>БУНКЕР</Link></div>
 			<div className={style.nav}>
-				<Link to ='/lobbi'><button className={style.nav_but}>ИГРАТЬ</button></Link>
+				<Link to ='/lobby'><button className={style.nav_but}>ИГРАТЬ</button></Link>
 				<Link to = '/rules'><button className={style.nav_but}>ПРАВИЛА</button></Link>
 			</div>
 

@@ -1,62 +1,35 @@
-import { useNavigate, useParams } from "react-router-dom"
-import { instance } from "../../utils/axios";
-import { useEffect, useState } from "react";
-import { ILobbi } from "../../common/types/lobbi";
-import Chat from "../../components/chat";
-import { useUserStore } from "../../store";
-
+import PlayerCard from "../../components/playerCard"
+import style from "./style.module.css"
 
 const GamePage = () => {
-    const {lobbyId} = useParams();
-    // console.log(lobbyId);
-    const nav = useNavigate()
-    const user = useUserStore(state => state.userStore)
-    if (!user || !user.id){
-        throw new Error ('Пользователь не авторизован')
-    }
-    const [ lobbi, setLobbi] = useState<ILobbi | null>(null)
-    const [ userInLobby, setUserInLobby] = useState<ILobbi | null>(null)
-    
-    const Click = async() => {
-        await instance.put(`lobbis/lobbiCurrent/${lobbyId}`, {
-            action: 'descrement',
-            userId: user.id
-        }),
-        nav(`/lobbi`)
-    }
-
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                const res = await instance.get(`lobbis/getOne/${lobbyId}`)
-                setLobbi(res.data)
-                await instance.put(`lobbis/lobbiCurrent/${lobbyId}`, {
-                    action: 'increment',
-                    userId: user.id
-                })
-                // const resUser = await instance.get(`lobbis/getUserLobbi/${lobbyId}`)
-                // setUserInLobby(resUser.data)
-            } catch (error) {
-                console.error("Ошибка получения лобби:", error)
-            }
-        }
-        fetch()
-    }, [lobbyId])
-    
     return(
         <>
-            <div>
-                {lobbi ? (
-                    <>
-                        <h1>{lobbi.name}</h1>
-                        <div>{userInLobby ? <p>userInLobby</p> : <p>Нет подключенных</p>}</div>
-                        <button onClick={Click}>Выход</button>
-                        <Chat lobbyId = {lobbyId}/>
-                    </>
-                ) : (
-                    <p>Загрузка лобби...</p>
-                ) }
+        <div className={style.head}>
+            <div className={style.head_history}>
+                Жоская предыстория апокалипсиса. По типу открытия другого
+                измерения, ядерная война, восстание зомби и тд
             </div>
+            <div className={style.head_logo}> Продолжительность 3 года. Бункер 400 м^2. Тут места на 5 человек</div>
+            <div className={style.head_info}> В бункере есть кухня и запас еды на 1.5 года. Арсенал с оружием. Медпункт но с запертой дверью. Пособия по земледелию</div>
+            <div className={style.head_content}> 
+                ХЗ. мэйби кнопки
+            </div>
+            
+        </div>
+        <div className={style.cardList}>
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+            <PlayerCard />
+        </div>
             
         </>
     )

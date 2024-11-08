@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom"
-import { Header, Footer } from "../../components/wrap/wrap"
 import style from "./style.module.css"
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import { useState } from "react"
@@ -36,7 +35,6 @@ export default function CreateLobbiPage() {
         
     return(
         <>
-            <Header />
             <div className={style.box}>
                 <h1>Создать лобби</h1><Link to = '/lobbi'><button>Watch lobbi</button><br /></Link>
                 <form  onSubmit={handleSubmit}>
@@ -105,7 +103,6 @@ export default function CreateLobbiPage() {
                     </Box>
                 </form>
             </div>
-            <Footer />
         </>
     )
 }

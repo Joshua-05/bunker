@@ -1,11 +1,9 @@
-import { Footer, Header } from "../../components/wrap/wrap";
 import style from "./style.module.css"
 
 const MenuPage = () => {
 
     return(
         <>
-            <Header />
             <div className={style.description}>
                 <p>"Бункер" – дискуссионная игра о выживании
                      после апокалипсиса. На Земле грядёт глобальная катастрофа.
@@ -17,7 +15,6 @@ const MenuPage = () => {
                           хобби и др. Постепенно вы раскрываете свои карты, знакомитесь друг с другом и принимаете решения,
                            кто и насколько будет полезен для выживания и восстановления жизни после выхода из бункера. </p>
             </div>
-            <Footer />
         </>
     )
 }

@@ -1,5 +1,4 @@
 import { useEffect, useLayoutEffect } from "react"
-import { Footer, Header } from "../../components/wrap/wrap"
 import { useLobbiStore } from "../../store"
 import { instance } from "../../utils/axios"
 import style from "./style.module.css"
@@ -56,7 +55,6 @@ const LobbiListPage = () => {
 
     return(
         <>
-            <Header />
             <main>
                 <div className={style.box}>
                     <h1>Список лобби</h1><Link to = '/lobbi-create'><button>Create lobbi</button><br /></Link>
@@ -69,7 +67,6 @@ const LobbiListPage = () => {
                     </div>
                 </div>
             </main>
-            <Footer />
         </>
     )
 }

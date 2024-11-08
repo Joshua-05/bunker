@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AuthRoot from "./pages/auth/index.tsx";
 import LobbiListPage from "./pages/lobbiList/index.tsx";
 import MenuPage from "./pages/menu/index.tsx";
@@ -8,6 +8,8 @@ import PrivateRoute from "./utils/router/privateRoute.tsx";
 import { ColorModeContext, useMode } from "./theme/index.ts";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import LayoutComponent from "./components/layout/index.tsx";
+import LobbyRoomPage from "./pages/lobbyRoom/index.tsx";
+import { Footer, Header } from "./components/wrap/wrap.tsx";
 import GamePage from "./pages/game/index.tsx";
 
 
@@ -21,17 +23,20 @@ export default function App() {
 						<ThemeProvider theme={theme}>
 							<CssBaseline />
 							<LayoutComponent>
-								<Routes>
-									<Route path="login" element={<AuthRoot />} />
-									<Route path="registr" element={<AuthRoot />} />
-									<Route path="/" element={<MenuPage />} />
-									<Route path="rules" element={<RulesPage />} />
-									<Route element={<PrivateRoute />}>
-										<Route path="lobbi" element={<LobbiListPage />} />
-										<Route path="lobbi-create" element={<CreateLobbiPage />} />
-										<Route path="game/:lobbyId" element={<GamePage />} />
-									</Route>
-								</Routes>
+							<Header />
+							<Routes>
+								<Route path="login" element={<AuthRoot />} />
+								<Route path="registr" element={<AuthRoot />} />
+								<Route path="/" element={<MenuPage />} />
+								<Route path="rules" element={<RulesPage />} />
+								<Route element={<PrivateRoute />}>
+									<Route path="lobby" element={<LobbiListPage />} />
+									<Route path="lobby-create" element={<CreateLobbiPage />} />
+									<Route path="lobby-room/:lobbyId" element={<LobbyRoomPage />} />
+									<Route path="game" element={<GamePage />} />
+								</Route>
+							</Routes>
+							<Footer />
 							</LayoutComponent>
 						</ThemeProvider>
 					</ColorModeContext.Provider>
@@ -39,3 +44,27 @@ export default function App() {
 		</>
 	);
 }
+
+
+// const RoutesWrapper = () => {
+// 	const location = useLocation(); 
+// 	const hideHeaderAndFooter = location.pathname === '/game';
+// 	return (
+// 		<>
+// 			{!hideHeaderAndFooter && <Header />}
+// 			<Routes>
+// 				<Route path="login" element={<AuthRoot />} />
+// 				<Route path="registr" element={<AuthRoot />} />
+// 				<Route path="/" element={<MenuPage />} />
+// 				<Route path="rules" element={<RulesPage />} />
+// 				<Route element={<PrivateRoute />}>
+// 					<Route path="lobby" element={<LobbiListPage />} />
+// 					<Route path="lobby-create" element={<CreateLobbiPage />} />
+// 					<Route path="lobby-room/:lobbyId" element={<LobbyRoomPage />} />
+// 					<Route path="game" element={<GamePage />} />
+// 				</Route>
+// 			</Routes>
+// 			{!hideHeaderAndFooter && <Footer />}
+// 		</>
+// 	);
+// };

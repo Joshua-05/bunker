@@ -24,9 +24,9 @@ const Chat = ({lobbyId}: ChatProps) => {
         socket.on('message', (message) => {
             setMessages((prev) => [...prev, message]);
             console.log(message);
-            
         });
-
+        console.log('sigma');
+        
         return () => {
             // socket.off('joinLobby');
             socket.off('message'); 

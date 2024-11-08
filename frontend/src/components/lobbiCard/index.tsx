@@ -17,9 +17,9 @@ export default function LobbiCard({lobbi}: ILobbiProps) {
         lobbi.password
         ? (setFlag(true), pas === lobbi.password && 
             
-            nav(`/game/${lobbi.id}`)
+            nav(`/lobby-room/${lobbi.id}`)
         )
-        :   nav(`/game/${lobbi.id}`)
+        :   nav(`/lobby-room/${lobbi.id}`)
     }
     return (
         <>

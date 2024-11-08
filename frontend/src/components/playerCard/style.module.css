@@ -1,0 +1,25 @@
+.card{
+    box-sizing: border-box;
+    height: 200px;
+    width: 350px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.card_bio{
+    box-sizing: border-box;
+    height: 80px;
+}
+
+.card_info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card_infoLeft{
+    padding-top: 10px;
+}
+
+.card_infoRight{
+    padding-top: 35px;
+}

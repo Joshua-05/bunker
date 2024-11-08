@@ -1,0 +1,36 @@
+.head{
+    margin-top: 20px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 600px 400px 400px 200px;
+    grid-template-rows: repeat(1, 160px);
+}
+
+.head_history{
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.head_logo{
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.head_info{
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.head_content{
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+
+.cardList{
+    margin-top: 20px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 355px);
+    grid-template-rows: repeat(3, 205px);
+}
