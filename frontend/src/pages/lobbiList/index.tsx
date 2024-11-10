@@ -57,7 +57,7 @@ const LobbiListPage = () => {
         <>
             <main>
                 <div className={style.box}>
-                    <h1>Список лобби</h1><Link to = '/lobbi-create'><button>Create lobbi</button><br /></Link>
+                    <h1>Список лобби</h1><Link to = '/lobby-create'><button>Create lobbi</button><br /></Link>
                     <div className={style.lobbiList}>
                         {lobbiStore.length > 0 ? 
                             lobbiStore.map(item => <LobbiCard lobbi = {item} key={item.id}/>)

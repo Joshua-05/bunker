@@ -1,5 +1,6 @@
-import { Model, Column, Table, HasMany} from 'sequelize-typescript';
+import { Model, Column, Table, HasMany, BelongsToMany} from 'sequelize-typescript';
 import { UserLobby } from './userLobby.model';
+import { User } from 'src/modules/user/models/user.model';
 
 @Table
 export class Lobbi extends Model {
@@ -18,9 +19,11 @@ export class Lobbi extends Model {
   @Column
   password?: string;
 
-  @HasMany(() => UserLobby, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  })
-  userLobbi: UserLobby[]
+  // @HasMany(() => UserLobby, {
+  //   onDelete: 'CASCADE',
+  //   onUpdate: 'CASCADE'
+  // })
+  // userLobbi: UserLobby[]
+  @BelongsToMany(() => User, () => UserLobby)
+  users: User[]
 }

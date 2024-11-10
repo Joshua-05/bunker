@@ -23,20 +23,7 @@ export default function App() {
 						<ThemeProvider theme={theme}>
 							<CssBaseline />
 							<LayoutComponent>
-							<Header />
-							<Routes>
-								<Route path="login" element={<AuthRoot />} />
-								<Route path="registr" element={<AuthRoot />} />
-								<Route path="/" element={<MenuPage />} />
-								<Route path="rules" element={<RulesPage />} />
-								<Route element={<PrivateRoute />}>
-									<Route path="lobby" element={<LobbiListPage />} />
-									<Route path="lobby-create" element={<CreateLobbiPage />} />
-									<Route path="lobby-room/:lobbyId" element={<LobbyRoomPage />} />
-									<Route path="game" element={<GamePage />} />
-								</Route>
-							</Routes>
-							<Footer />
+								<RoutesWrapper/>
 							</LayoutComponent>
 						</ThemeProvider>
 					</ColorModeContext.Provider>
@@ -46,25 +33,25 @@ export default function App() {
 }
 
 
-// const RoutesWrapper = () => {
-// 	const location = useLocation(); 
-// 	const hideHeaderAndFooter = location.pathname === '/game';
-// 	return (
-// 		<>
-// 			{!hideHeaderAndFooter && <Header />}
-// 			<Routes>
-// 				<Route path="login" element={<AuthRoot />} />
-// 				<Route path="registr" element={<AuthRoot />} />
-// 				<Route path="/" element={<MenuPage />} />
-// 				<Route path="rules" element={<RulesPage />} />
-// 				<Route element={<PrivateRoute />}>
-// 					<Route path="lobby" element={<LobbiListPage />} />
-// 					<Route path="lobby-create" element={<CreateLobbiPage />} />
-// 					<Route path="lobby-room/:lobbyId" element={<LobbyRoomPage />} />
-// 					<Route path="game" element={<GamePage />} />
-// 				</Route>
-// 			</Routes>
-// 			{!hideHeaderAndFooter && <Footer />}
-// 		</>
-// 	);
-// };
+const RoutesWrapper = () => {
+	const location = useLocation(); 
+	const hideHeaderAndFooter = location.pathname === '/game';
+	return (
+		<>
+			{!hideHeaderAndFooter && <Header />}
+			<Routes>
+				<Route path="login" element={<AuthRoot />} />
+				<Route path="registr" element={<AuthRoot />} />
+				<Route path="/" element={<MenuPage />} />
+				<Route path="rules" element={<RulesPage />} />
+				<Route element={<PrivateRoute />}>
+					<Route path="lobby" element={<LobbiListPage />} />
+					<Route path="lobby-create" element={<CreateLobbiPage />} />
+					<Route path="lobby-room/:lobbyId" element={<LobbyRoomPage />} />
+					<Route path="game" element={<GamePage />} />
+				</Route>
+			</Routes>
+			{!hideHeaderAndFooter && <Footer />}
+		</>
+	);
+};

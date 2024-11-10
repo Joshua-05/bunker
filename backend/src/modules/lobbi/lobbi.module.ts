@@ -5,9 +5,10 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Lobbi } from './models/lobbi.model';
 import { UserLobby } from './models/userLobby.model';
 import { WebsocketModule } from 'src/websocket/websocket.module';
+import { User } from '../user/models/user.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Lobbi, UserLobby]), WebsocketModule],
+  imports: [SequelizeModule.forFeature([Lobbi, UserLobby, User]), WebsocketModule],
   controllers: [LobbiController],
   providers: [LobbiService]
 })

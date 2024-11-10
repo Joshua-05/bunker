@@ -27,7 +27,7 @@ export default function CreateLobbiPage() {
             try {
                 const lobbi = await instance.post("lobbis/create", lobbiData);
                 // console.log(lobbi);
-                navigate(`/game/${lobbi.data.id}`)
+                navigate(`/lobby-room/${lobbi.data.id}`)
             } catch (error) {
                 console.error("Error creating lobby:", error);
             }

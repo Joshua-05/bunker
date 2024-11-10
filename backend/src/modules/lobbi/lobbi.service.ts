@@ -48,7 +48,11 @@ export class LobbiService {
 
         switch(action){
             case 'increment':
-                if (lobbi.current < lobbi.count){
+                const exist = await this.userLobbiRepository.findOne({where: {userId: userId}})
+                if (exist){
+                    return lobbi
+                }
+                if (!exist && lobbi.current < lobbi.count){
                     await this.userLobbiRepository.create({ lobbyId: id, userId: userId })
                     lobbi.current += 1
                     await lobbi.save()
@@ -79,8 +83,7 @@ export class LobbiService {
     }
     async getUsersForLobby(lobbyId: number) {
         const users = await this.userLobbiRepository.findAll({
-            where: { lobbyId },
-            include: [User],
+            where: { lobbyId : lobbyId },
         });
     
         if (!users) {

@@ -40,14 +40,13 @@ export class LobbiController {
         @Body() body: { 
             action: 'descrement' | 'increment',
             userId: number
-         }){
-        return this.lobbiService.updateCurrent(id, body.action, body.userId)
+         }
+    ){
+    return this.lobbiService.updateCurrent(id, body.action, body.userId)
     }
 
     @Get('getUserLobbi/:id')
-    getUsersForLobby(
-        @Param('id') id: number
-    ){
+    getUsersForLobby(@Param('id') id: number){
         return this.lobbiService.getUsersForLobby(id)
     }
 }

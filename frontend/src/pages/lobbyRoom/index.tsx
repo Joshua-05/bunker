@@ -6,6 +6,11 @@ import Chat from "../../components/chat";
 import { useUserStore } from "../../store";
 
 
+interface User {
+    lobbyId: number;
+    userId: string;
+}
+
 const LobbyRoomPage = () => {
     const {lobbyId} = useParams();
     // console.log(lobbyId);
@@ -15,7 +20,7 @@ const LobbyRoomPage = () => {
         throw new Error ('Пользователь не авторизован')
     }
     const [ lobbi, setLobbi] = useState<ILobbi | null>(null)
-    const [ userInLobby, setUserInLobby] = useState<ILobbi | null>(null)
+    const [ userInLobby, setUserInLobby] = useState<User[]>([])
     
     const ClickExit = async() => {
         await instance.put(`lobbis/lobbiCurrent/${lobbyId}`, {
@@ -25,9 +30,9 @@ const LobbyRoomPage = () => {
         nav(`/lobby`)
     }
 
-    const ClickEnter = async() => {
-        nav(`/game`)
-    }
+    // const ClickEnter = async() => {
+    //     nav(`/game`)
+    // }
 
     useEffect(() => {
         const fetch = async () => {
@@ -38,8 +43,8 @@ const LobbyRoomPage = () => {
                     action: 'increment',
                     userId: user.id
                 })
-                // const resUser = await instance.get(`lobbis/getUserLobbi/${lobbyId}`)
-                // setUserInLobby(resUser.data)
+                const resUser = await instance.get(`lobbis/getUserLobbi/${lobbyId}`)
+                setUserInLobby(resUser.data)
             } catch (error) {
                 console.error("Ошибка получения лобби:", error)
             }
@@ -53,7 +58,11 @@ const LobbyRoomPage = () => {
                 {lobbi ? (
                     <>
                         <h1>{lobbi.name}</h1>
-                        <div>{userInLobby ? <p>userInLobby</p> : <p>Нет подключенных</p>}</div>
+                        <div>
+                            {userInLobby.length > 0 ? (
+                                <p>{userInLobby.map((item, index) => (<span key={index}>{item.userId}</span>))}</p>
+                            ): (<p>Нет подключенных</p>)}
+                        </div>
                         <button onClick={ClickExit}>Выход</button>
                         <Chat lobbyId = {lobbyId}/>
                     </>

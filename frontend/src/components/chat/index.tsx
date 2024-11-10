@@ -19,18 +19,19 @@ const Chat = ({lobbyId}: ChatProps) => {
     const messageEndRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        socket.emit('joinLobby', lobbyId); 
+        if (lobbyId) {
+            socket.emit('joinLobby', lobbyId); 
 
-        socket.on('message', (message) => {
-            setMessages((prev) => [...prev, message]);
-            console.log(message);
-        });
-        console.log('sigma');
-        
-        return () => {
-            // socket.off('joinLobby');
-            socket.off('message'); 
-        };
+            socket.on('message', (message) => {
+                setMessages((prev) => [...prev, message]);
+            });
+            console.log('sigma');
+            
+            return () => {
+                socket.off('joinLobby');
+                socket.off('message'); 
+            };
+        }
     }, [lobbyId])
 
     useEffect(() => {
@@ -40,8 +41,9 @@ const Chat = ({lobbyId}: ChatProps) => {
     }, [messages]);
 
     const sendMessage = (messageText: string) => {
-        const message = {lobbyId, sender: user?.username, text: messageText};
-        socket.emit('message', message); 
+        if (messageText.trim() === '') return;
+        const message = {sender: user?.username, text: messageText};
+        socket.emit('message',{ lobbyId, ...message}); 
     };
 
     return(
@@ -57,9 +59,9 @@ const Chat = ({lobbyId}: ChatProps) => {
                 type="text" 
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {
-                        const inputElement = e.target as HTMLInputElement
-                        inputElement.value != '' && sendMessage(inputElement.value)
-                        inputElement.value = ""
+                        const inputElement = e.target as HTMLInputElement; 
+                        sendMessage(inputElement.value);
+                        inputElement.value = ""; 
                     }
                 }} 
             />
