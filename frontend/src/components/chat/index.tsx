@@ -22,7 +22,7 @@ const Chat = ({lobbyId}: ChatProps) => {
         if (lobbyId) {
             socket.emit('joinLobby', lobbyId); 
 
-            socket.on('message', (message) => {
+            socket.on('messages', (message) => {
                 setMessages((prev) => [...prev, message]);
             });
             console.log('sigma');

@@ -30,23 +30,4 @@ export class LobbiController {
     getOne(@Param('id') id: number){
         return this.lobbiService.findOneLobbi(id)
     }
-
-    @ApiTags('API')
-    @ApiResponse({ status: 200, type: CreateLobbiDTO  })
-    @HttpCode(200)
-    @Put('lobbiCurrent/:id')
-    updateCurrent(
-        @Param('id') id: number,
-        @Body() body: { 
-            action: 'descrement' | 'increment',
-            userId: number
-         }
-    ){
-    return this.lobbiService.updateCurrent(id, body.action, body.userId)
-    }
-
-    @Get('getUserLobbi/:id')
-    getUsersForLobby(@Param('id') id: number){
-        return this.lobbiService.getUsersForLobby(id)
-    }
 }

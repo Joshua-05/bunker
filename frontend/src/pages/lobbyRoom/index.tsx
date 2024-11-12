@@ -23,7 +23,7 @@ const LobbyRoomPage = () => {
     const [ userInLobby, setUserInLobby] = useState<User[]>([])
     
     const ClickExit = async() => {
-        await instance.put(`lobbis/lobbiCurrent/${lobbyId}`, {
+        await instance.put(`room/lobbiCurrent/${lobbyId}`, {
             action: 'descrement',
             userId: user.id
         }),
@@ -39,11 +39,11 @@ const LobbyRoomPage = () => {
             try {
                 const res = await instance.get(`lobbis/getOne/${lobbyId}`)
                 setLobbi(res.data)
-                await instance.put(`lobbis/lobbiCurrent/${lobbyId}`, {
+                await instance.put(`room/lobbiCurrent/${lobbyId}`, {
                     action: 'increment',
                     userId: user.id
                 })
-                const resUser = await instance.get(`lobbis/getUserLobbi/${lobbyId}`)
+                const resUser = await instance.get(`room/getUserLobbi/${lobbyId}`)
                 setUserInLobby(resUser.data)
             } catch (error) {
                 console.error("Ошибка получения лобби:", error)

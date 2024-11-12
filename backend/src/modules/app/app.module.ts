@@ -12,7 +12,7 @@ import { ChatGateway } from 'src/websocket/Gateway/chat.gateway';
 
 import { User } from '../user/models/user.model';
 import { Lobbi } from '../lobbi/models/lobbi.model';
-import { UserLobby } from '../lobbi/models/userLobby.model';
+import { UserLobby } from '../connectRoom/models/userLobby.model';
 
 @Module({
   imports: [

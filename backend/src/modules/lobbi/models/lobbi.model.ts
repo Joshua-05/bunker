@@ -1,5 +1,5 @@
 import { Model, Column, Table, HasMany, BelongsToMany} from 'sequelize-typescript';
-import { UserLobby } from './userLobby.model';
+import { UserLobby } from '../../connectRoom/models/userLobby.model';
 import { User } from 'src/modules/user/models/user.model';
 
 @Table

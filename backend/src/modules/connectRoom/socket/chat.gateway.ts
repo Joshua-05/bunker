@@ -12,12 +12,12 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer()
     server: Server;
 
-    handleConnection(client: Socket) {
-        console.log('Client connected:', client.id);
+    handleConnection() {
+        // console.log('Client connected:', client.id);
     }
     
-    handleDisconnect(client: Socket) {
-        console.log('Client disconnected:', client.id);
+    handleDisconnect() {
+        // console.log('Client disconnected:', client.id);
     }
 
     @SubscribeMessage('joinLobby') 
@@ -29,6 +29,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     @SubscribeMessage('message')
     handleMessage(client: Socket, { lobbyId, sender, text }: { lobbyId: string; sender: string; text: string }): void {
-        this.server.to(lobbyId).emit('message', { sender, text });
+        this.server.to(lobbyId).emit('messages', { sender, text });
     }
 }
