@@ -8,11 +8,11 @@ import configurations from '../../configurations';
 import { AuthModule } from '../auth/auth.module';
 import { TokenModule } from '../token/token.module';
 import { LobbiModule } from '../lobbi/lobbi.module';
-import { ChatGateway } from 'src/websocket/Gateway/chat.gateway';
 
 import { User } from '../user/models/user.model';
 import { Lobbi } from '../lobbi/models/lobbi.model';
 import { UserLobby } from '../connectRoom/models/userLobby.model';
+import { ConnectRoomModule } from '../connectRoom/connect-room.module';
 
 @Module({
   imports: [
@@ -38,9 +38,10 @@ import { UserLobby } from '../connectRoom/models/userLobby.model';
     UserModule,
     AuthModule,
     TokenModule,
-    LobbiModule
+    LobbiModule,
+    ConnectRoomModule
   ],
   controllers: [AppController],
-  providers: [AppService, ChatGateway],
+  providers: [AppService],
 })
 export class AppModule {}
