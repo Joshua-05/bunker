@@ -24,6 +24,9 @@ export class Lobbi extends Model {
   //   onUpdate: 'CASCADE'
   // })
   // userLobbi: UserLobby[]
-  @BelongsToMany(() => User, () => UserLobby)
+
+  // @BelongsToMany(() => User, () => UserLobby)
+  // users: User[]
+  @HasMany(() => User)
   users: User[]
 }

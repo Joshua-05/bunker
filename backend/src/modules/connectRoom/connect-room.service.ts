@@ -3,12 +3,13 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Lobbi } from '../lobbi/models/lobbi.model';
 import { UserLobby } from './models/userLobby.model';
 import { LobbyListGateway } from '../lobbi/socket/lobbyList.gateway';
+import { User } from '../user/models/user.model';
 
 @Injectable()
 export class ConnectRoomService {
     constructor (
         @InjectModel(Lobbi) private readonly lobbiRepository: typeof Lobbi,
-        @InjectModel(UserLobby) private readonly userLobbiRepository: typeof UserLobby,
+        @InjectModel(User) private readonly userRepository: typeof User,
         private readonly lobbyListGateway: LobbyListGateway
     ){}
 
@@ -21,12 +22,15 @@ export class ConnectRoomService {
 
         switch(action){
             case 'increment':
-                const exist = await this.userLobbiRepository.findOne({where: {userId: userId}})
+                const exist = await this.userRepository.findOne({where: {id : userId, lobbyId : id}})
                 if (exist){
                     return lobbi
                 }
                 if (!exist && lobbi.current < lobbi.count){
-                    await this.userLobbiRepository.create({ lobbyId: id, userId: userId })
+                    await this.userRepository.update(
+                        {lobbyId: id}, 
+                        {where : {userId : userId }} 
+                    )
                     lobbi.current += 1
                     await lobbi.save()
                     this.lobbyListGateway.server.emit('lobbyUpdated', lobbi);
@@ -36,14 +40,18 @@ export class ConnectRoomService {
                     throw new NotFoundException(`Lobby with ID ${id} full limit`)
                 }
             case 'descrement':
+                await this.userRepository.update(
+                    {lobbyId: null},
+                    {where : {id : userId, lobbyId: id}}
+                )
                 lobbi.current -= 1
-                const deleteUserToLobbi = await this.userLobbiRepository.findAll({where: {
-                    userId: userId,
-                    lobbyId: id
-                } })
-                if (deleteUserToLobbi) {
-                    await deleteUserToLobbi.map(item => item.destroy());
-                }
+                // const deleteUserToLobbi = await this.userRepository.findAll({where: {
+                //     userId: userId,
+                //     lobbyId: id
+                // } })
+                // if (deleteUserToLobbi) {
+                //     await deleteUserToLobbi.map(item => item.destroy());
+                // }
                 if (lobbi.current === 0){
                     this.lobbyListGateway.server.emit('lobbyDeleted', lobbi.id)
                     await lobbi.destroy()
@@ -54,16 +62,17 @@ export class ConnectRoomService {
                 return lobbi
         }
     }
-    
+
     async getUsersForLobby(lobbyId: number) {
-        const users = await this.userLobbiRepository.findAll({
-            where: { lobbyId : lobbyId },
+        const users = await this.lobbiRepository.findOne({
+            where: { id : lobbyId },
+            include: [User],
         });
     
         if (!users) {
             throw new NotFoundException(`No users found for lobby ID ${lobbyId}`);
         }
     
-        return users; 
+        return users.users; 
     }
 }

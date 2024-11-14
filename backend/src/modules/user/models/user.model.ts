@@ -1,4 +1,4 @@
-import { Model, Column, Table, HasMany, BelongsToMany } from 'sequelize-typescript';
+import { Model, Column, Table, HasMany, BelongsToMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Lobbi } from 'src/modules/lobbi/models/lobbi.model';
 import { UserLobby } from 'src/modules/connectRoom/models/userLobby.model';
 
@@ -21,6 +21,14 @@ export class User extends Model {
   //   onUpdate: 'CASCADE'
   // })
   // userLobbi: UserLobby[]
-  @BelongsToMany(() => Lobbi, () => UserLobby)
-  lobbys: Lobbi[]
+
+  // @BelongsToMany(() => Lobbi, () => UserLobby)
+  // lobbys: Lobbi[]
+
+  @ForeignKey(() => Lobbi)
+  @Column
+  lobbyId: number;
+
+  @BelongsTo(() => Lobbi)
+  lobby: Lobbi;
 }

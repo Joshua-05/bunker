@@ -6,10 +6,11 @@ import { Lobbi } from '../lobbi/models/lobbi.model';
 import { UserLobby } from './models/userLobby.model';
 import { User } from '../user/models/user.model';
 import { WebsocketModule } from './socket/websocket.module';
+import { LobbyListGateway } from '../lobbi/socket/lobbyList.gateway';
 
 @Module({
   imports: [SequelizeModule.forFeature([Lobbi, UserLobby, User]), WebsocketModule],
-  providers: [ConnectRoomService],
+  providers: [ConnectRoomService, LobbyListGateway],
   controllers: [ConnectRoomController]
 })
 export class ConnectRoomModule {}
