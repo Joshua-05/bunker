@@ -14,10 +14,17 @@ export class ConnectRoomService {
     ){}
 
     async updateCurrent(id: number, action: 'descrement' | 'increment', userId: number){
-        const lobbi = await this.lobbiRepository.findOne({where: {id: id}});
+        const lobbi = await this.lobbiRepository.findOne({
+            where: {id: id},
+        });
+        const user = await this.userRepository.findByPk(userId)
 
         if(!lobbi){
             throw new NotFoundException(`Lobby with ID ${id} not found`);
+        }
+
+        if (!lobbi.users) {
+            lobbi.users = []
         }
 
         switch(action){
@@ -29,9 +36,10 @@ export class ConnectRoomService {
                 if (!exist && lobbi.current < lobbi.count){
                     await this.userRepository.update(
                         {lobbyId: id}, 
-                        {where : {userId : userId }} 
+                        {where : {id : userId }} 
                     )
                     lobbi.current += 1
+                    await lobbi.users.push(user)
                     await lobbi.save()
                     this.lobbyListGateway.server.emit('lobbyUpdated', lobbi);
                     return lobbi
@@ -45,6 +53,7 @@ export class ConnectRoomService {
                     {where : {id : userId, lobbyId: id}}
                 )
                 lobbi.current -= 1
+                await lobbi.$remove('users', user)
                 // const deleteUserToLobbi = await this.userRepository.findAll({where: {
                 //     userId: userId,
                 //     lobbyId: id
@@ -72,7 +81,7 @@ export class ConnectRoomService {
         if (!users) {
             throw new NotFoundException(`No users found for lobby ID ${lobbyId}`);
         }
-    
+        
         return users.users; 
     }
 }

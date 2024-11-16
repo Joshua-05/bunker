@@ -1,5 +1,4 @@
 import { Model, Column, Table, HasMany, BelongsToMany} from 'sequelize-typescript';
-import { UserLobby } from '../../connectRoom/models/userLobby.model';
 import { User } from 'src/modules/user/models/user.model';
 
 @Table
@@ -19,6 +18,11 @@ export class Lobbi extends Model {
   @Column
   password?: string;
 
+  @HasMany(() => User)
+  users: User[]
+}
+
+
   // @HasMany(() => UserLobby, {
   //   onDelete: 'CASCADE',
   //   onUpdate: 'CASCADE'
@@ -27,6 +31,3 @@ export class Lobbi extends Model {
 
   // @BelongsToMany(() => User, () => UserLobby)
   // users: User[]
-  @HasMany(() => User)
-  users: User[]
-}

@@ -36,7 +36,7 @@ export default function CreateLobbiPage() {
     return(
         <>
             <div className={style.box}>
-                <h1>Создать лобби</h1><Link to = '/lobbi'><button>Watch lobbi</button><br /></Link>
+                <h1>Создать лобби</h1><Link to = '/lobby'><button>Watch lobbi</button><br /></Link>
                 <form  onSubmit={handleSubmit}>
                     <Box
                         display="flex"

@@ -20,7 +20,8 @@ export class LobbiService {
             current: dto.current,
             count: dto.count,
             access: dto.access,
-            password: dto.password
+            password: dto.password,
+            users: []
         });
         this.lobbyListGateway.server.emit('lobbyCreated', lobbi)
         return lobbi;

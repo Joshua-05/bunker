@@ -4,12 +4,8 @@ import { useEffect, useState } from "react";
 import { ILobbi } from "../../common/types/lobbi";
 import Chat from "../../components/chat";
 import { useUserStore } from "../../store";
-
-
-interface User {
-    lobbyId: number;
-    userId: string;
-}
+import { IUser } from "../../common/types/auth";
+import UserInLobbyCard from "../../components/userInLobbyCard";
 
 const LobbyRoomPage = () => {
     const {lobbyId} = useParams();
@@ -20,7 +16,7 @@ const LobbyRoomPage = () => {
         throw new Error ('Пользователь не авторизован')
     }
     const [ lobbi, setLobbi] = useState<ILobbi | null>(null)
-    const [ userInLobby, setUserInLobby] = useState<User[]>([])
+    const [ userInLobby, setUserInLobby] = useState<IUser[]>([]) //РАБОТАЮ С ЭТИМ ВОТ
     
     const ClickExit = async() => {
         await instance.put(`room/lobbiCurrent/${lobbyId}`, {
@@ -44,6 +40,8 @@ const LobbyRoomPage = () => {
                     userId: user.id
                 })
                 const resUser = await instance.get(`room/getUserLobbi/${lobbyId}`)
+                console.log('ВОТ ОНО ВОТ ЭТО', resUser);
+                
                 setUserInLobby(resUser.data)
             } catch (error) {
                 console.error("Ошибка получения лобби:", error)
@@ -57,13 +55,18 @@ const LobbyRoomPage = () => {
             <div>
                 {lobbi ? (
                     <>
+                        <div>
+                            
+                        </div>
                         <h1>{lobbi.name}</h1>
+                        <span>{lobbi.current} / {lobbi.count}</span>
+                        <button onClick={ClickExit}>Выход</button>
                         <div>
                             {userInLobby.length > 0 ? (
-                                <p>{userInLobby.map((item, index) => (<span key={index}>{item.userId}</span>))}</p>
+                                userInLobby.map(item => <UserInLobbyCard users = {item} key={item.id}/>)      
                             ): (<p>Нет подключенных</p>)}
                         </div>
-                        <button onClick={ClickExit}>Выход</button>
+                        
                         <Chat lobbyId = {lobbyId}/>
                     </>
                 ) : (
