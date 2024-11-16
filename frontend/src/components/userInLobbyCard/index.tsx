@@ -1,4 +1,5 @@
 import { IUser } from "../../common/types/auth"
+import style from "./style.module.css"
 
 interface IUserInLobbyCard {
     users: IUser
@@ -6,7 +7,7 @@ interface IUserInLobbyCard {
 
 const UserInLobbyCard = ({users}: IUserInLobbyCard) => {
     return (
-        <div>
+        <div className={style.card}>
             <p>{users.username}</p>
         </div>
     )

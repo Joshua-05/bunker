@@ -4,6 +4,7 @@ import { Lobbi } from '../lobbi/models/lobbi.model';
 import { UserLobby } from './models/userLobby.model';
 import { LobbyListGateway } from '../lobbi/socket/lobbyList.gateway';
 import { User } from '../user/models/user.model';
+import { ChatGateway } from './socket/chat.gateway';
 
 @Injectable()
 export class ConnectRoomService {

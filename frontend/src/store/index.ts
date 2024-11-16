@@ -13,7 +13,7 @@ export const useUserStore = create<UserStore>()(persist((set) => ({
         })
     },
     reset: () => 
-        set({ userStore: null, isLogged: false }),
+        set({ userStore: null, isLogged: false })
 }),{
     name: 'UserStore', 
     version: 1

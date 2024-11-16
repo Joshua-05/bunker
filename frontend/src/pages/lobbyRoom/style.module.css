@@ -1,0 +1,20 @@
+.userList{
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 650px;
+    min-height: 400px;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+.userList_head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.userList_head__name{
+    display: flex;
+    align-items: center;
+}

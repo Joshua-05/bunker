@@ -19,14 +19,14 @@ export default function App() {
 	return (
 		<>
 				<BrowserRouter>
-					<ColorModeContext.Provider value={colorMode}>
-						<ThemeProvider theme={theme}>
-							<CssBaseline />
-							<LayoutComponent>
+					{/* <ColorModeContext.Provider value={colorMode}> */}
+						{/* <ThemeProvider theme={theme}> */}
+							{/* <CssBaseline /> */}
+							{/* <LayoutComponent> */}
 								<RoutesWrapper/>
-							</LayoutComponent>
-						</ThemeProvider>
-					</ColorModeContext.Provider>
+							{/* </LayoutComponent> */}
+						{/* </ThemeProvider> */}
+					{/* </ColorModeContext.Provider> */}
 				</BrowserRouter>
 		</>
 	);

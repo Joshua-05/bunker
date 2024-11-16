@@ -1,5 +1,6 @@
 import { WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { UserDTO } from '../dto';
 
 @WebSocketGateway({
     cors: {
@@ -18,6 +19,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     
     handleDisconnect() {
         // console.log('Client disconnected:', client.id);
+    }
+
+    @SubscribeMessage('userUpdate')
+    handleLobbyCreated(user: UserDTO): void {
+        this.server.emit('userUpdate', user); 
     }
 
     @SubscribeMessage('joinLobby') 

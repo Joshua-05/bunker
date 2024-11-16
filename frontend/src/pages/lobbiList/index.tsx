@@ -1,8 +1,8 @@
 import { useEffect, useLayoutEffect } from "react"
-import { useLobbiStore } from "../../store"
+import { useLobbiStore, useUserStore } from "../../store"
 import { instance } from "../../utils/axios"
 import style from "./style.module.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import LobbiCard  from "../../components/lobbiCard"
 import { ILobbi } from "../../common/types/lobbi"
 import socket from "../../utils/socket";
@@ -14,6 +14,8 @@ const LobbiListPage = () => {
     const reset = useLobbiStore(state => state.resetLobbi);
     const update = useLobbiStore(state => state.updateLobbi);
     const deleteLobby = useLobbiStore(state => state.deleteLobbi)
+    const user = useUserStore(state => state.userStore)
+    const nav = useNavigate()
 
     const fetchLobbi = async () => {
         reset();
@@ -23,25 +25,20 @@ const LobbiListPage = () => {
     };  
 
     useLayoutEffect(() => {
-        
         fetchLobbi();
     }, []);
 
     useEffect(() => {
-        // Подписываемся на обновления о новых лобби
         socket.on('lobbyCreated', (lobbi: ILobbi[]) => {
-            addLobbi(lobbi); // Добавляем новое лобби в список
+            addLobbi(lobbi);
         });
 
         socket.on('lobbyUpdated', (lobbi: ILobbi) => {
-            update(lobbi); //обновляем одно конкретное лобби
-            // fetchLobbi(); //временное решение просто все пересчитать(дописать метод update в лобби сторе)
+            update(lobbi);
         });
 
-        socket.on('lobbyDeleted', (lobbyId: number) => { //обдумать обходимость параметра
+        socket.on('lobbyDeleted', (lobbyId: number) => { 
             deleteLobby(lobbyId)
-            // reset(); // Сбрасываем список лобби, если необходимо 
-            // fetchLobbi(); // Или просто перерасчитываем его заново.
         });
 
         return () => {
@@ -50,7 +47,7 @@ const LobbiListPage = () => {
             socket.off('lobbyDeleted');
         };        
     }, [reset, addLobbi, update, deleteLobby]);
-    console.log(lobbiStore);
+    // console.log(lobbiStore);
     
 
     return(

@@ -1,0 +1,10 @@
+.card{
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-sizing: border-box;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-radius: 8px;
+}

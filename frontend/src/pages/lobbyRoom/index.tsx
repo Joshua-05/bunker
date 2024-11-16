@@ -6,6 +6,7 @@ import Chat from "../../components/chat";
 import { useUserStore } from "../../store";
 import { IUser } from "../../common/types/auth";
 import UserInLobbyCard from "../../components/userInLobbyCard";
+import style from "./style.module.css"
 
 const LobbyRoomPage = () => {
     const {lobbyId} = useParams();
@@ -40,7 +41,7 @@ const LobbyRoomPage = () => {
                     userId: user.id
                 })
                 const resUser = await instance.get(`room/getUserLobbi/${lobbyId}`)
-                console.log('ВОТ ОНО ВОТ ЭТО', resUser);
+                // console.log('ВОТ ОНО ВОТ ЭТО', resUser);
                 
                 setUserInLobby(resUser.data)
             } catch (error) {
@@ -55,16 +56,23 @@ const LobbyRoomPage = () => {
             <div>
                 {lobbi ? (
                     <>
-                        <div>
-                            
-                        </div>
-                        <h1>{lobbi.name}</h1>
-                        <span>{lobbi.current} / {lobbi.count}</span>
-                        <button onClick={ClickExit}>Выход</button>
+                        <div className={style.userList}>
+                            <div className={style.userList_head}>
+                                <button>Start</button>
+                                <div className={style.userList_head__name}>
+                                    <h1>{lobbi.name}</h1>
+                                    <span>{userInLobby.length} / {lobbi.count}</span>
+                                </div>
+                                <button onClick={ClickExit}>Выход</button>
+                            </div>
+                        
                         <div>
                             {userInLobby.length > 0 ? (
                                 userInLobby.map(item => <UserInLobbyCard users = {item} key={item.id}/>)      
-                            ): (<p>Нет подключенных</p>)}
+                            )
+                            : 
+                            (<p>Нет подключенных</p>)}
+                        </div>
                         </div>
                         
                         <Chat lobbyId = {lobbyId}/>
