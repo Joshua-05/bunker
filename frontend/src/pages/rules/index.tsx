@@ -14,7 +14,7 @@ export default function RulesPage() {
                         <li className={style.ready}>Повесить автозапрос на список лобби</li>
                         <li className={style.ready}>В лобби отображать подключенных к нему</li>
                         <li className={style.noready}>Подписка на сокет в лоббирум для динамического отображения изменений</li>
-                        <li className={style.noready}>Если пользователь в лоббирум при выгрузке списка кидать его в него</li>
+                        <li className={style.ready}>Если пользователь в лоббирум при выгрузке списка кидать его в него</li>
                         <li className={style.noready}>В лобби руме показывать кол-во свободных</li>
                         <li className={style.noready}>Возможность пригласить друга</li>
                         <li className={style.noready}>Голосовая связь</li>

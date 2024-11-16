@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, matchPath, Route, Routes, useLocation } from "react-router-dom";
 import AuthRoot from "./pages/auth/index.tsx";
 import LobbiListPage from "./pages/lobbiList/index.tsx";
 import MenuPage from "./pages/menu/index.tsx";
@@ -35,7 +35,7 @@ export default function App() {
 
 const RoutesWrapper = () => {
 	const location = useLocation(); 
-	const hideHeaderAndFooter = location.pathname === '/game';
+	const hideHeaderAndFooter = matchPath('/game/:lobbyId', location.pathname) !== null
 	return (
 		<>
 			{!hideHeaderAndFooter && <Header />}
@@ -48,7 +48,7 @@ const RoutesWrapper = () => {
 					<Route path="lobby" element={<LobbiListPage />} />
 					<Route path="lobby-create" element={<CreateLobbiPage />} />
 					<Route path="lobby-room/:lobbyId" element={<LobbyRoomPage />} />
-					<Route path="game" element={<GamePage />} />
+					<Route path="game/:lobbyId" element={<GamePage />} />
 				</Route>
 			</Routes>
 			{!hideHeaderAndFooter && <Footer />}

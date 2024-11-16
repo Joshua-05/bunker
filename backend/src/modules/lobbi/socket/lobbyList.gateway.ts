@@ -14,8 +14,8 @@ import { CreateLobbiDTO } from 'src/modules/lobbi/dto';
     server: Server;
   
     @SubscribeMessage('lobbyCreated')
-    handleLobbyCreated(lobby: CreateLobbiDTO): void {
-        this.server.emit('lobbyCreated', lobby); 
+    handleLobbyCreated(lobbi: CreateLobbiDTO[]): void {
+        this.server.emit('lobbyCreated', lobbi); 
     }
 
     @SubscribeMessage('lobbyUpdated')

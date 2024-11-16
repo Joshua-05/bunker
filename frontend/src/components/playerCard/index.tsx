@@ -1,15 +1,26 @@
+import { useState } from "react"
+import { IUser } from "../../common/types/auth"
 import style from "./style.module.css"
 
-const PlayerCard = () => {
+interface PlayerCardProps {
+    player: IUser
+}
+
+const PlayerCard = ({player}: PlayerCardProps) => {
+    const [prof, setProf] = useState('Профессия')
+
+    const pok = () => {
+        setProf(player.email)
+    }
     return(
         <div className={style.card}>
             <div className={style.card_bio}>
-                <span>Nickname</span><br />
+                <span>{player.username}</span><br />
                 <span>M   24</span>
             </div>
             <div className={style.card_info}>
                 <div className={style.card_infoLeft}>
-                    <span>Профессия</span><br />
+                    <span onClick={pok}>{prof}</span><br />
                     <span>Здоровье</span><br />
                     <span>Хобби</span><br />
                     <span>Фобия</span>

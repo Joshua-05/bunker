@@ -23,7 +23,8 @@ export class LobbiService {
             password: dto.password,
             users: []
         });
-        this.lobbyListGateway.server.emit('lobbyCreated', lobbi)
+        const lobbys = await this.lobbiRepository.findAll()
+        this.lobbyListGateway.server.emit('lobbyCreated', lobbys)
         return lobbi;
     }
     async findAllLobbi(){
