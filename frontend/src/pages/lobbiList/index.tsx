@@ -24,7 +24,16 @@ const LobbiListPage = () => {
         addLobbi(lobbi);
     };  
 
+    const userInLobby = async () => {
+        const usInLob = await instance.get(`users/findUser/${user?.email}`)
+        const id = usInLob.data.lobbyId
+        if (id){
+            nav(`/lobby-room/${id}`)
+        }
+    }
+
     useLayoutEffect(() => {
+        userInLobby();
         fetchLobbi();
     }, []);
 

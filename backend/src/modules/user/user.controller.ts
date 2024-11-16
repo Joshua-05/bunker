@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDTO } from './dto';
 import { JwtAuthGuard } from 'src/guards/jwt-guard';
@@ -15,6 +15,11 @@ export class UserController {
   updateUser(@Body() updateDto: UpdateUserDTO, @Req() request): Promise<UpdateUserDTO> {
     const user = request.user;
     return this.userService.updateUser(user.email, updateDto);
+  }
+
+  @Get('findUser/:email')
+  findUser( @Param('email') email: string){
+    return this.userService.findUserByEmail(email)
   }
 
   @UseGuards(JwtAuthGuard)
