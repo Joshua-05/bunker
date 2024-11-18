@@ -40,12 +40,7 @@ const GamePage = () => {
         </div>
         <div className={style.table}>
             <div className={style.cardList}>
-                {userInLobby? userInLobby.map(item => <PlayerCard player={item}/>): <p>нет игроков</p>}
-                {userInLobby? userInLobby.map(item => <PlayerCard player={item}/>): <p>нет игроков</p>}
-                {userInLobby? userInLobby.map(item => <PlayerCard player={item}/>): <p>нет игроков</p>}
-                {userInLobby? userInLobby.map(item => <PlayerCard player={item}/>): <p>нет игроков</p>}
-                {userInLobby? userInLobby.map(item => <PlayerCard player={item}/>): <p>нет игроков</p>}
-                {userInLobby? userInLobby.map(item => <PlayerCard player={item}/>): <p>нет игроков</p>}
+                {userInLobby? userInLobby.map(item => <PlayerCard player={item} key={item.id}/>): <p>нет игроков</p>}
                 {/* <PlayerCard />
                 <PlayerCard />
                 <PlayerCard />
@@ -60,7 +55,9 @@ const GamePage = () => {
                 <PlayerCard /> */}
             </div>
             <div>
-                your card
+                <div>your card</div>
+                <div> Chat and buttons</div>
+                
             </div>
         </div>
         

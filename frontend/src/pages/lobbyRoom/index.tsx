@@ -7,6 +7,7 @@ import { useUserStore } from "../../store";
 import { IUser } from "../../common/types/auth";
 import UserInLobbyCard from "../../components/userInLobbyCard";
 import style from "./style.module.css"
+// import socket from "../../utils/socket";
 
 const LobbyRoomPage = () => {
     const {lobbyId} = useParams();
@@ -18,6 +19,7 @@ const LobbyRoomPage = () => {
     }
     const [ lobbi, setLobbi] = useState<ILobbi | null>(null)
     const [ userInLobby, setUserInLobby] = useState<IUser[]>([]) //РАБОТАЮ С ЭТИМ ВОТ
+    // const [popit, setPopit] = useState<number>()
     
     const ClickExit = async() => {
         await instance.put(`room/lobbiCurrent/${lobbyId}`, {
@@ -27,9 +29,9 @@ const LobbyRoomPage = () => {
         nav(`/lobby`)
     }
 
-    // const ClickEnter = async() => {
-    //     nav(`/game`)
-    // }
+    const ClickEnter = async() => {
+        nav(`/game/${lobbyId}`)
+    }
 
     useEffect(() => {
         const fetch = async () => {
@@ -44,7 +46,17 @@ const LobbyRoomPage = () => {
                 // console.log('ВОТ ОНО ВОТ ЭТО', resUser);
                 
                 setUserInLobby(resUser.data)
+                // socket.on('lobbyDeleted', (lobbyId: number) => { 
+                //     deleteLobby(lobbyId)
+                // });
+                // socket.on('userJoined', (ki: number) => {
+                //     setPopit(ki);    
+                // })
+                // return () => {
+                //     socket.off('userJoined')
+                // }
             } catch (error) {
+                nav('/lobby')
                 console.error("Ошибка получения лобби:", error)
             }
         }
@@ -58,7 +70,7 @@ const LobbyRoomPage = () => {
                     <>
                         <div className={style.userList}>
                             <div className={style.userList_head}>
-                                <button>Start</button>
+                                <button onClick={ClickEnter}>Start</button>
                                 <div className={style.userList_head__name}>
                                     <h1>{lobbi.name}</h1>
                                     <span>{userInLobby.length} / {lobbi.count}</span>
