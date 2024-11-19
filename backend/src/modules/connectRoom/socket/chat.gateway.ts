@@ -13,6 +13,8 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer()
     server: Server;
 
+    private lobbyUsers: { [key: string]: Set<string> } = {};
+
     handleConnection() {
         // console.log('Client connected:', client.id);
     }
@@ -27,14 +29,41 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
 
     @SubscribeMessage('joinLobby') 
-    handleJoinLobby(client: Socket, lobbyId: string): void {
+    handleJoinLobby(client: Socket, {lobbyId, count}: {lobbyId: string, count: number}): void {
         client.join(lobbyId);
         console.log(`Client ${client.id} joined lobby: ${lobbyId}`);
-        this.server.to(lobbyId).emit('userJoined', { sender: 'System', message: `User ${client.id} has joined the lobby.` });
+        if (!this.lobbyUsers[lobbyId]) {
+            this.lobbyUsers[lobbyId] = new Set();
+        }
+        this.lobbyUsers[lobbyId].add(client.id);
+        console.log(this.lobbyUsers[lobbyId].size,'sssssdhhhhhhhssssssssssssssssssssss', count);
+        
+        // Проверка на полный лимит
+        if (this.lobbyUsers[lobbyId].size >= count) { 
+            this.server.to(lobbyId).emit('lobbyFull', { message: 'Lobby is full, starting the game!' });
+            //  инициировать логику начала игры тут
+        } else {
+            this.server.to(lobbyId).emit('userJoined', { sender: 'System', message: `User ${client.id} has joined the lobby.` });
+        }
     }
 
     @SubscribeMessage('message')
     handleMessage(client: Socket, { lobbyId, sender, text }: { lobbyId: string; sender: string; text: string }): void {
         this.server.to(lobbyId).emit('messages', { sender, text });
+    }
+
+    private removeUserFromLobby(clientId: string) {
+        for (const lobbyId in this.lobbyUsers) {
+            if (this.lobbyUsers[lobbyId].has(clientId)) {
+                this.lobbyUsers[lobbyId].delete(clientId);
+                // Если необходимо, обновите состояние лобби и уведомите пользователей.
+                this.server.to(lobbyId).emit('userLeft', { sender: 'System', message: `User ${clientId} has left the lobby.` });
+
+                // Если лобби пустое, вы можете удалить его или обновить статус.
+                if (this.lobbyUsers[lobbyId].size === 0) {
+                    delete this.lobbyUsers[lobbyId]; // Удаляем лобби из памяти, если пользователей нет
+                }
+            }
+        }
     }
 }

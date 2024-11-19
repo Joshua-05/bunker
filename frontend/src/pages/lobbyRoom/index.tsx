@@ -7,7 +7,7 @@ import { useUserStore } from "../../store";
 import { IUser } from "../../common/types/auth";
 import UserInLobbyCard from "../../components/userInLobbyCard";
 import style from "./style.module.css"
-// import socket from "../../utils/socket";
+import socket from "../../utils/socket";
 
 const LobbyRoomPage = () => {
     const {lobbyId} = useParams();
@@ -46,14 +46,10 @@ const LobbyRoomPage = () => {
                 // console.log('ВОТ ОНО ВОТ ЭТО', resUser);
                 
                 setUserInLobby(resUser.data)
-                // socket.on('lobbyDeleted', (lobbyId: number) => { 
-                //     deleteLobby(lobbyId)
-                // });
-                // socket.on('userJoined', (ki: number) => {
-                //     setPopit(ki);    
-                // })
-                // return () => {
-                //     socket.off('userJoined')
+               
+                // if (resUser.data.length >= res.data.count) {
+                //     // Запускаем игру, если лобби полное
+                //     ClickEnter();
                 // }
             } catch (error) {
                 nav('/lobby')
@@ -61,6 +57,11 @@ const LobbyRoomPage = () => {
             }
         }
         fetch()
+        socket.on('lobbyFull', ClickEnter);
+
+        return () => {
+            socket.off('lobbyFull', ClickEnter);
+        };
     }, [lobbyId])
     
     return(
@@ -86,8 +87,8 @@ const LobbyRoomPage = () => {
                             (<p>Нет подключенных</p>)}
                         </div>
                         </div>
-                        
-                        <Chat lobbyId = {lobbyId}/>
+                        {console.log(typeof(lobbi.count))}
+                        <Chat lobbyId = {lobbyId} count = {lobbi.count}/>
                     </>
                 ) : (
                     <p>Загрузка лобби...</p>

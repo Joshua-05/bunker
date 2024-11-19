@@ -10,17 +10,23 @@ interface IMessage {
 
 interface ChatProps{
     lobbyId: string | undefined
+    count: number
 }
 
 
-const Chat = ({lobbyId}: ChatProps) => {
+const Chat = (props: ChatProps) => {
+    const lobbyId = props.lobbyId
+    const count = props.count
+    const lobbyInfo = {lobbyId: lobbyId, count: count}   
+    
     const user = useUserStore(state => state.userStore)
     const [messages, setMessages] = useState<IMessage[]>([]);
     const messageEndRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         if (lobbyId) {
-            socket.emit('joinLobby', lobbyId); 
+            console.log(count);
+            socket.emit('joinLobby', lobbyInfo); 
 
             socket.on('messages', (message) => {
                 setMessages((prev) => [...prev, message]);
