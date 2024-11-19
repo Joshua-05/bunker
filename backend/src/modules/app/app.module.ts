@@ -11,7 +11,6 @@ import { LobbiModule } from '../lobbi/lobbi.module';
 
 import { User } from '../user/models/user.model';
 import { Lobbi } from '../lobbi/models/lobbi.model';
-import { UserLobby } from '../connectRoom/models/userLobby.model';
 import { ConnectRoomModule } from '../connectRoom/connect-room.module';
 
 @Module({
@@ -32,7 +31,7 @@ import { ConnectRoomModule } from '../connectRoom/connect-room.module';
         database: configservice.get('db_name'),
         synchronize: true,
         autoLoadModels: true,
-        models: [User, Lobbi, UserLobby]
+        models: [User, Lobbi]
       })
     }),
     UserModule,

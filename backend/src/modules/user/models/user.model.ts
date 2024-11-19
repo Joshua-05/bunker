@@ -1,6 +1,5 @@
 import { Model, Column, Table, HasMany, BelongsToMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Lobbi } from 'src/modules/lobbi/models/lobbi.model';
-import { UserLobby } from 'src/modules/connectRoom/models/userLobby.model';
 
 @Table
 export class User extends Model {

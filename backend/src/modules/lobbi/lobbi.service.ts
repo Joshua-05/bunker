@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Lobbi } from './models/lobbi.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateLobbiDTO } from './dto';
-import { UserLobby } from '../connectRoom/models/userLobby.model';
 import { User } from '../user/models/user.model';
 import { LobbyListGateway } from 'src/modules/lobbi/socket/lobbyList.gateway';
 
