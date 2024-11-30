@@ -1,0 +1,11 @@
+.card{
+    box-sizing: border-box;
+    height: 300px;
+    width: 200px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.card :hover{
+    transform: scale(1.1);
+}

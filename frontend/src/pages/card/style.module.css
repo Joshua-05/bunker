@@ -12,9 +12,38 @@ main{
     
 }
 
+.filters{
+    display: flex;
+    margin: 10px auto;
+    width: 700px;
+    justify-content: space-between;
+}
+
+.filters button{
+    border: none;
+    box-sizing: border-box;
+    height: 30px;
+    min-width: 60px;
+    border-radius: 5px;
+}
+
+.filters button:hover{
+    cursor: pointer;
+}
+
+.buttonActive{
+    background-color: #007bff;
+    color: white;
+}
+
+.buttonGray{
+    background-color: #d3d3d3;
+    color: #6c757d;
+}
+
 .cardList{
-     width: 600px;
-     margin: 10px auto;
+    align-items: center;
+    margin: 10px auto;
 }
 
 .box h1{
