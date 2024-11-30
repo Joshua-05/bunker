@@ -1,4 +1,26 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { CardService } from './card.service';
+import { CreateCardDTO } from './dto';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@Controller('card')
-export class CardController {}
+@Controller('cards')
+export class CardController {
+    constructor(private readonly cardService: CardService){}
+
+    @ApiTags('API')
+    @ApiResponse({ status: 201, type: CreateCardDTO })
+    @HttpCode(201)
+    @Post('create')
+    create(@Body() dto: CreateCardDTO): Promise<CreateCardDTO>{
+        return this.cardService.createCard(dto)
+    }
+
+    @ApiTags('API')
+    @ApiResponse({ status: 200 })
+    @HttpCode(200)
+    @Get('getAll')
+    getAll(){
+        return this.cardService.findAllCard()
+    }
+    
+}

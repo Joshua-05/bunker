@@ -13,6 +13,8 @@ import { User } from '../user/models/user.model';
 import { Lobbi } from '../lobbi/models/lobbi.model';
 import { ConnectRoomModule } from '../connectRoom/connect-room.module';
 import { CardModule } from '../card/card.module';
+import { Card } from '../card/models/card.model';
+import { Combination } from '../card/models/combination.model';
 
 @Module({
   imports: [
@@ -32,7 +34,7 @@ import { CardModule } from '../card/card.module';
         database: configservice.get('db_name'),
         synchronize: true,
         autoLoadModels: true,
-        models: [User, Lobbi]
+        models: [User, Lobbi, Card, Combination]
       })
     }),
     UserModule,
@@ -40,7 +42,7 @@ import { CardModule } from '../card/card.module';
     TokenModule,
     LobbiModule,
     ConnectRoomModule,
-    CardModule
+    CardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

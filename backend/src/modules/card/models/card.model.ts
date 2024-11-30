@@ -4,20 +4,20 @@ import { Combination } from "./combination.model";
 @Table
 export class Card extends Model{
     @Column
-    type: string
+    type: string;
 
     @Column
-    name: string
+    name: string;
 
     @Column
-    important: number
+    importance: number;
 
     @Column
-    description: string
+    descripton: string;
 
-    @ForeignKey(() => Combination)
-    @Column
-    combinationId?: number;
+    // @ForeignKey(() => Combination)
+    // @Column
+    // combinationId?: number;
 
     @HasMany(() => Combination)
     combinations: Combination[];

@@ -6,8 +6,8 @@ import { Card } from './models/card.model';
 import { Combination } from './models/combination.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Card, Combination])],
+  imports: [SequelizeModule.forFeature([Card])],
   controllers: [CardController],
-  providers: [CardService]
+  providers: [CardService],
 })
 export class CardModule {}
