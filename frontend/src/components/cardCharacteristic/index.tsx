@@ -10,7 +10,7 @@ const CardCharacteristic = ({card}: CardCharacteristicProps) => {
         <div className={style.card}>
             <p>{card.type}</p>
             <p>{card.name}</p>
-            <p>{card.descripton}</p>
+            <p className={style.card_description}>{card.descripton}</p>  
         </div>
     )
 }

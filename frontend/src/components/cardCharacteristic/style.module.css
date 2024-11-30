@@ -1,9 +1,18 @@
 .card{
     box-sizing: border-box;
-    height: 300px;
-    width: 200px;
+    height: 330px;
+    width: 230px;
     border: 1px solid black;
     margin-bottom: 10px;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: 40px 70px 220px;
+}
+
+.card_description{
+    font-size: 16px;
+    text-align: left;
+
 }
 
 .card :hover{

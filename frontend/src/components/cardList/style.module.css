@@ -1,5 +1,5 @@
 .list{
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(4, 210px);
+    grid-template-columns: repeat(4, 240px);
 }

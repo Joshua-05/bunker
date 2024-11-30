@@ -35,7 +35,7 @@ const CardsPage = () => {
             if (sex && card.type === 'Пол') return true;
             if (age && card.type === 'Возраст') return true;
             if (prof && card.type === 'Профессия') return true;
-            if (health && card.type === 'Здоровье') return true;
+            if (health && card.type === 'Здоровья') return true;
             if (hobby && card.type === 'Хобби') return true;
             if (phobia && card.type === 'Фобия') return true;
             if (invent && card.type === 'Багаж') return true;
