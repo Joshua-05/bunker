@@ -12,6 +12,7 @@ import { LobbiModule } from '../lobbi/lobbi.module';
 import { User } from '../user/models/user.model';
 import { Lobbi } from '../lobbi/models/lobbi.model';
 import { ConnectRoomModule } from '../connectRoom/connect-room.module';
+import { CardModule } from '../card/card.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { ConnectRoomModule } from '../connectRoom/connect-room.module';
     AuthModule,
     TokenModule,
     LobbiModule,
-    ConnectRoomModule
+    ConnectRoomModule,
+    CardModule
   ],
   controllers: [AppController],
   providers: [AppService],

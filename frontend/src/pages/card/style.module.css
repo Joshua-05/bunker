@@ -1,0 +1,23 @@
+main{
+    
+    box-sizing: border-box;
+    margin: 5px 10%;
+    width: inherit;
+    height: max-content;
+}
+
+.box{
+    margin: 10px auto;
+    text-align: center;
+    
+}
+
+.cardList{
+     width: 600px;
+     margin: 10px auto;
+}
+
+.box h1{
+    display: inline;
+    margin-right: 5px;
+}

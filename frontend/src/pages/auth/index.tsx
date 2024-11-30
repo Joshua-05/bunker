@@ -18,6 +18,8 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 	const navigate = useNavigate();
 	const addUser = useUserStore(state => state.addUser)
 
+	
+
 
 	const handleSubmit = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();

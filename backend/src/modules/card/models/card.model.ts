@@ -1,4 +1,5 @@
-import { Column, Model, Table } from "sequelize-typescript";
+import { Column, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { Combination } from "./combination.model";
 
 @Table
 export class Card extends Model{
@@ -14,10 +15,10 @@ export class Card extends Model{
     @Column
     description: string
 
-    @ForeignKey(() => ...)
+    @ForeignKey(() => Combination)
     @Column
-    combinationId: number;
+    combinationId?: number;
 
-    @BelongsTo(() => ...)
-    combination: ...;
+    @HasMany(() => Combination)
+    combinations: Combination[];
 }

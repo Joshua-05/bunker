@@ -11,6 +11,8 @@ import LayoutComponent from "./components/layout/index.tsx";
 import LobbyRoomPage from "./pages/lobbyRoom/index.tsx";
 import { Footer, Header } from "./components/wrap/wrap.tsx";
 import GamePage from "./pages/game/index.tsx";
+import CardsPage from "./pages/card/index.tsx";
+import CreateCardPage from "./pages/card/create.tsx";
 
 
 // shift alt f
@@ -44,6 +46,8 @@ const RoutesWrapper = () => {
 				<Route path="registr" element={<AuthRoot />} />
 				<Route path="/" element={<MenuPage />} />
 				<Route path="rules" element={<RulesPage />} />
+				<Route path="cards" element={<CardsPage />} />
+				<Route path="cards-create" element={<CreateCardPage />} />
 				<Route element={<PrivateRoute />}>
 					<Route path="lobby" element={<LobbiListPage />} />
 					<Route path="lobby-create" element={<CreateLobbiPage />} />

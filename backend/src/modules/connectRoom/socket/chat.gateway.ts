@@ -56,12 +56,12 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         for (const lobbyId in this.lobbyUsers) {
             if (this.lobbyUsers[lobbyId].has(clientId)) {
                 this.lobbyUsers[lobbyId].delete(clientId);
-                // Если необходимо, обновите состояние лобби и уведомите пользователей.
+                
                 this.server.to(lobbyId).emit('userLeft', { sender: 'System', message: `User ${clientId} has left the lobby.` });
 
-                // Если лобби пустое = удалить его или обновить статус.
+                
                 if (this.lobbyUsers[lobbyId].size === 0) {
-                    delete this.lobbyUsers[lobbyId]; // Удаляем лобби из памяти, если пользователей нет
+                    delete this.lobbyUsers[lobbyId]; 
                 }
             }
         }

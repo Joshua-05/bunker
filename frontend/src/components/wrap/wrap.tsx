@@ -46,6 +46,7 @@ export const Header: React.FC = () : JSX.Element => {
 			<div className={style.nav}>
 				<Link to ='/lobby'><button className={style.nav_but}>ИГРАТЬ</button></Link>
 				<Link to = '/rules'><button className={style.nav_but}>ПРАВИЛА</button></Link>
+				<Link to = '/cards'><button className={style.nav_but}>КАРТЫ</button></Link>
 			</div>
 
 			{user ? <Profile /> : <Sign />}

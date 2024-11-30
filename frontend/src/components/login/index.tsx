@@ -3,7 +3,6 @@ import style from "../../pages/auth/style.module.css";
 import { IPropsLogin } from "../../common/types/auth";
 import { Link } from "react-router-dom";
 
-
  const LoginPage : React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
 	const { setEmail, setPassword } = props;
 	return (
