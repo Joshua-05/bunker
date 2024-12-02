@@ -2,7 +2,8 @@
     box-sizing: border-box;
     height: 330px;
     width: 230px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    border-radius: 10px;
     margin-bottom: 15px;
     padding: 10px;
     display: grid;
@@ -11,18 +12,22 @@
 
 .green {
     box-shadow: 0 4px 15px rgba(0, 255, 0, 0.5);
+    /* border: 1px solid green; */
 }
 
 .black {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    /* border: 1px solid black; */
 }
 
 .red {
     box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
+    /* border: 1px solid red; */
 }
 
 .gray {
-    box-shadow: 0 4px 15px rgba(230, 255, 6, 0.5);
+    box-shadow: 0 4px 15px rgba(181, 201, 0, 0.5);
+    /* border: 1px solid yellow; */
 }
 
 .card_description{
