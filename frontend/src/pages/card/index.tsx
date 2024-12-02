@@ -16,6 +16,7 @@ const CardsPage = () => {
     const [phobia, setPhobia] = useState<boolean>(true)
     const [invent, setInvent] = useState<boolean>(true)
     const [fact, setFact] = useState<boolean>(true)
+    const [all, setAll] = useState<boolean>(false)
 
     const fetchCardData = async() => {
         try {
@@ -29,6 +30,18 @@ const CardsPage = () => {
     useEffect(() => {
         fetchCardData()
     }, [])
+
+    const handleAll = () => {
+        setAll(!all)
+        setSex(all)
+        setAge(all)
+        setProf(all)
+        setHealth(all)
+        setHobby(all)
+        setPhobia(all)
+        setInvent(all)
+        setFact(all)
+    }
 
     const filteredCards = () => {
         return cards.filter(card => {
@@ -98,6 +111,12 @@ const CardsPage = () => {
                                 className={fact ? style.buttonActive : style.buttonGray}
                             >
                                 Факты
+                            </button>
+                            <button 
+                                onClick={handleAll} 
+                                className={style.buttonActive}
+                            >
+                                Всё
                             </button>
 
                         </div>

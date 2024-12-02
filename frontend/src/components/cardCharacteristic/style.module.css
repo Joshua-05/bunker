@@ -3,10 +3,26 @@
     height: 330px;
     width: 230px;
     border: 1px solid black;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     padding: 10px;
     display: grid;
     grid-template-rows: 40px 70px 220px;
+}
+
+.green {
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.5);
+}
+
+.black {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+}
+
+.red {
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
+}
+
+.gray {
+    box-shadow: 0 4px 15px rgba(230, 255, 6, 0.5);
 }
 
 .card_description{
@@ -15,6 +31,6 @@
 
 }
 
-.card :hover{
+/* .card :hover{
     transform: scale(1.1);
-}
+} */
