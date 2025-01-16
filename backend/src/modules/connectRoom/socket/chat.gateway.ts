@@ -68,15 +68,10 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     // }
     @SubscribeMessage('leaveLobby') 
     handleLeaveLobby(client: Socket, { lobbyId }: { lobbyId: string }): void {
-    // Проверяем, существует ли лобби
-    if (this.lobbyUsers[lobbyId] && this.lobbyUsers[lobbyId].has(client.id)) {
-        // Удаляем пользователя из лобби
-        this.lobbyUsers[lobbyId].delete(client.id);
-        
-        // Уведомляем остальных пользователей о том, что пользователь покинул лобби
-        this.server.to(lobbyId).emit('userLeft', { sender: 'System', message: `User ${client.id} has left the lobby.` });
 
-        // Если лобби пустое, можно удалить его из списка
+    if (this.lobbyUsers[lobbyId] && this.lobbyUsers[lobbyId].has(client.id)) {
+        this.lobbyUsers[lobbyId].delete(client.id);
+        this.server.to(lobbyId).emit('userLeft', { sender: 'System', message: `User ${client.id} has left the lobby.` });
         if (this.lobbyUsers[lobbyId].size === 0) {
             delete this.lobbyUsers[lobbyId];
         }
