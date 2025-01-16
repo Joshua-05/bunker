@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import PlayerCard from "../../components/playerCard"
 import style from "./style.module.css"
 import { useEffect, useState } from "react"
-import { instance } from "../../utils/axios"
+import { instance } from "../../api/baseUrl"
 import { IUser } from "../../common/types/auth"
 
 

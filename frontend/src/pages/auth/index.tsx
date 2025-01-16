@@ -4,7 +4,7 @@ import LoginPage from "../../components/login";
 import RegisterPage from "../../components/registr";
 import { Box } from "@mui/material";
 import { useState } from "react";
-import { instance } from "../../utils/axios";
+import { instance } from "../../api/baseUrl";
 import { AppErrors } from "../../common/errors";
 import { useUserStore } from "../../store";
 

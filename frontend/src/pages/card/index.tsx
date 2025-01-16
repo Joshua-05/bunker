@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import style from "./style.module.css"
 import { useEffect, useState } from "react"
-import { instance } from "../../utils/axios"
+import { instance } from "../../api/baseUrl"
 import { ICards } from "../../common/types/cards"
 import CardList from "../../components/cardList"
 

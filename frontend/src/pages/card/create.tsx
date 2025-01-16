@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import style from "./style.module.css"
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Slider, TextField } from "@mui/material"
 import { useState } from "react";
-import { instance } from "../../utils/axios";
+import { instance } from "../../api/baseUrl";
 
 const CreateCardPage = () => {
     const [type, setType] = useState('');

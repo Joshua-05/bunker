@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect } from "react"
 import { useLobbiStore, useUserStore } from "../../store"
-import { instance } from "../../utils/axios"
+import { instance } from "../../api/baseUrl"
 import style from "./style.module.css"
 import { Link, useNavigate } from "react-router-dom"
 import LobbiCard  from "../../components/lobbiCard"

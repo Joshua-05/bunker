@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { instance } from "../../utils/axios";
+import { instance } from "../../api/baseUrl";
 import { useEffect, useState } from "react";
 import { ILobbi } from "../../common/types/lobbi";
 import Chat from "../../components/chat";
@@ -26,6 +26,7 @@ const LobbyRoomPage = () => {
             action: 'descrement',
             userId: user.id
         }),
+        socket.emit('leaveLobby', {lobbyId})
         nav(`/lobby`)
     }
 
@@ -57,10 +58,14 @@ const LobbyRoomPage = () => {
             }
         }
         fetch()
+        socket.on('userLeft', fetch)
+        socket.on('userJoined', fetch);
         socket.on('lobbyFull', ClickEnter);
 
         return () => {
+            socket.off('userLeft', fetch)
             socket.off('lobbyFull', ClickEnter);
+            socket.off('userJoined', fetch);
         };
     }, [lobbyId])
     

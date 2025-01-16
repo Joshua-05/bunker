@@ -37,7 +37,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         }
         this.lobbyUsers[lobbyId].add(client.id);
         console.log(this.lobbyUsers[lobbyId].size,'sssssdhhhhhhhssssssssssssssssssssss', count);
-        
         // Проверка на полный лимит
         if (this.lobbyUsers[lobbyId].size >= count) { 
             this.server.to(lobbyId).emit('lobbyFull', { message: 'Lobby is full, starting the game!' });
@@ -45,6 +44,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         } else {
             this.server.to(lobbyId).emit('userJoined', { sender: 'System', message: `User ${client.id} has joined the lobby.` });
         }
+        
     }
 
     @SubscribeMessage('message')
@@ -52,18 +52,34 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         this.server.to(lobbyId).emit('messages', { sender, text });
     }
 
-    private removeUserFromLobby(clientId: string) {
-        for (const lobbyId in this.lobbyUsers) {
-            if (this.lobbyUsers[lobbyId].has(clientId)) {
-                this.lobbyUsers[lobbyId].delete(clientId);
+    // private removeUserFromLobby(clientId: string) {
+    //     for (const lobbyId in this.lobbyUsers) {
+    //         if (this.lobbyUsers[lobbyId].has(clientId)) {
+    //             this.lobbyUsers[lobbyId].delete(clientId);
                 
-                this.server.to(lobbyId).emit('userLeft', { sender: 'System', message: `User ${clientId} has left the lobby.` });
+    //             this.server.to(lobbyId).emit('userLeft', { sender: 'System', message: `User ${clientId} has left the lobby.` });
 
                 
-                if (this.lobbyUsers[lobbyId].size === 0) {
-                    delete this.lobbyUsers[lobbyId]; 
-                }
-            }
+    //             if (this.lobbyUsers[lobbyId].size === 0) {
+    //                 delete this.lobbyUsers[lobbyId]; 
+    //             }
+    //         }
+    //     }
+    // }
+    @SubscribeMessage('leaveLobby') 
+    handleLeaveLobby(client: Socket, { lobbyId }: { lobbyId: string }): void {
+    // Проверяем, существует ли лобби
+    if (this.lobbyUsers[lobbyId] && this.lobbyUsers[lobbyId].has(client.id)) {
+        // Удаляем пользователя из лобби
+        this.lobbyUsers[lobbyId].delete(client.id);
+        
+        // Уведомляем остальных пользователей о том, что пользователь покинул лобби
+        this.server.to(lobbyId).emit('userLeft', { sender: 'System', message: `User ${client.id} has left the lobby.` });
+
+        // Если лобби пустое, можно удалить его из списка
+        if (this.lobbyUsers[lobbyId].size === 0) {
+            delete this.lobbyUsers[lobbyId];
         }
     }
+}
 }

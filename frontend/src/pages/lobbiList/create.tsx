@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import style from "./style.module.css"
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import { useState } from "react"
-import { instance } from "../../utils/axios"
+import { instance } from "../../api/baseUrl"
 // import { useLobbiStore } from "../../store"
 
 export default function CreateLobbiPage() {
@@ -64,6 +64,7 @@ export default function CreateLobbiPage() {
                                 label="Number of players"
                                 onChange={(event) => setCount(event.target.value)}
                             >
+                                <MenuItem value={3}>ТестНаТри</MenuItem>
                                 <MenuItem value={8}>Восемь</MenuItem>
                                 <MenuItem value={10}>Десять</MenuItem>
                                 <MenuItem value={12}>Двенадцать</MenuItem>
