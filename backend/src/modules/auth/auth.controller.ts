@@ -10,7 +10,7 @@ import { JwtAuthGuard } from 'src/guards/jwt-guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiTags('API')
+  @ApiTags('Auth')
   @ApiResponse({ status: 201, type: CreateUserDTO })
   @HttpCode(201)
   @Post('register')
@@ -18,7 +18,7 @@ export class AuthController {
     return this.authService.registrUser(dto);
   }
 
-  @ApiTags('API')
+  @ApiTags('Auth')
   @ApiResponse({ status: 200, type: AuthUserResponse })
   @HttpCode(200)
   @Post('login')
@@ -26,6 +26,7 @@ export class AuthController {
     return this.authService.loginUser(dto);
   }
 
+  @ApiTags('Auth')
   @UseGuards(JwtAuthGuard)
   @Post('test')
   test() {

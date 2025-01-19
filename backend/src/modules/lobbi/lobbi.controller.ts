@@ -7,7 +7,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 export class LobbiController {
     constructor(private readonly lobbiService: LobbiService) {}
 
-    @ApiTags('API')
+    @ApiTags('Lobbis')
     @ApiResponse({ status: 201, type: CreateLobbiDTO })
     @HttpCode(201)
     @Post('create')
@@ -15,7 +15,7 @@ export class LobbiController {
         return this.lobbiService.createLobbi(dto)
     }
 
-    @ApiTags('API')
+    @ApiTags('Lobbis')
     @ApiResponse({ status: 200 })
     @HttpCode(200)
     @Get('getAll')
@@ -23,7 +23,7 @@ export class LobbiController {
         return this.lobbiService.findAllLobbi()
     }
 
-    @ApiTags('API')
+    @ApiTags('Lobbis')
     @ApiResponse({ status: 200, type: CreateLobbiDTO  })
     @HttpCode(200)
     @Get('getOne/:id')

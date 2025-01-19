@@ -12,8 +12,10 @@
 }
 
 .head_logo{
+    padding-top: 20px;
     box-sizing: border-box;
     border: 1px solid black;
+    text-align: center;
 }
 
 .head_info{
@@ -29,6 +31,7 @@
 .table{
     display: flex;
     padding-top: 20px;
+    justify-content: center;
 }
 
 .cardList{
@@ -36,4 +39,27 @@
     justify-content: center;
     grid-template-columns: repeat(4, 355px);
     grid-template-rows: repeat(3, 205px);
+}
+
+.activeZona{
+    border: 1px solid black;
+    min-width: 300px;
+}
+
+.myCard{
+    height: 100px;
+}
+
+.myCard button {
+    min-width: 300px;
+    min-height: 100px;
+}
+
+.buttons{
+    height: 200px;
+}
+
+.chat{
+    min-height: 305px;
+    position: relative;
 }

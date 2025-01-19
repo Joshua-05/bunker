@@ -5,7 +5,7 @@ import { ConnectRoomService } from './connect-room.service';
 @Controller('room')
 export class ConnectRoomController {
     constructor (private readonly ConnectRoomService: ConnectRoomService) {}
-    @ApiTags('API')
+    @ApiTags('Room')
     @Put('lobbiCurrent/:id')
     updateCurrent(
         @Param('id') id: number,
@@ -17,6 +17,7 @@ export class ConnectRoomController {
     return this.ConnectRoomService.updateCurrent(id, body.action, body.userId)
     }
 
+    @ApiTags('Room')
     @Get('getUserLobbi/:id')
     getUsersForLobby(@Param('id') id: number){
         return this.ConnectRoomService.getUsersForLobby(id)

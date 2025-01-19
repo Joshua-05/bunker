@@ -1,0 +1,36 @@
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    position: absolute; 
+    bottom: 0;
+    left: 0; 
+    right: 0; 
+    background-color: #fff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+    max-height: 300px; 
+    overflow-y: auto;
+}
+
+.chat h1 {
+    margin: 0 0 10px 0;
+}
+
+.chat div {
+    flex: 1;
+    overflow-y: auto; 
+}
+
+.chat p {
+    margin: 5px 0; 
+    word-wrap: break-word;
+}
+
+.chat input {
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    width: 100%; 
+    box-sizing: border-box; 
+}

@@ -18,7 +18,6 @@ async function bootstrap() {
     .setTitle('Bunker api')
     .setDescription('This api for bunker')
     .setVersion('1.0')
-    .addTag('API')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

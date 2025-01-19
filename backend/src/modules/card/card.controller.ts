@@ -7,7 +7,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 export class CardController {
     constructor(private readonly cardService: CardService){}
 
-    @ApiTags('API')
+    @ApiTags('Cards')
     @ApiResponse({ status: 201, type: CreateCardDTO })
     @HttpCode(201)
     @Post('create')
@@ -15,7 +15,7 @@ export class CardController {
         return this.cardService.createCard(dto)
     }
 
-    @ApiTags('API')
+    @ApiTags('Cards')
     @ApiResponse({ status: 200 })
     @HttpCode(200)
     @Get('getAll')
