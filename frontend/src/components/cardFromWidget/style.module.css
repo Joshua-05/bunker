@@ -1,0 +1,32 @@
+.card {
+    box-sizing: border-box;
+    min-height: 130px;
+    max-height: 230px;
+    width: 230px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: 40px 70px 220px;
+    position: relative; 
+    transition: box-shadow 0.3s ease; 
+}
+
+.card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.tooltip {
+    position: absolute;
+    top: 100%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10; 
+    /* white-space: nowrap;*/
+}

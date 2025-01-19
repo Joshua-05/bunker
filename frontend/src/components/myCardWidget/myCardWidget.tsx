@@ -1,5 +1,5 @@
 import { ICards } from "../../common/types/cards"
-import CardCharacteristic from "../cardCharacteristic";
+import CardFromWidget from "../cardFromWidget";
 import style from "./myCardWidget.module.css"
 
 interface IPropsWidget {
@@ -11,7 +11,7 @@ const MyCardWidget = ({cards}: IPropsWidget) => {
     
     return(
         <div className={style.widget}>
-            {cards.map(item => <CardCharacteristic card={item} key={item.id}/>)}
+            {cards.map(item => <CardFromWidget card={item} key={item.id}/>)}
         </div>
     )
 }
