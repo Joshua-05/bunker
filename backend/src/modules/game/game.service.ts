@@ -13,7 +13,7 @@ export class GameService {
         private readonly cardRepository: CardService
     ) {}
 
-    async initPlayer(playerData : {userId: number, username: string, id_game: number}){
+    async initPlayer(playerData : {userId: number, username: string, id_game: string}){
         const cardList = await this.cardRepository.dealingCards()
         const [player, created] = await this.playerRepository.findOrCreate({
             where: {
@@ -50,8 +50,13 @@ export class GameService {
                 name: dto.name,
                 status: 'play',
                 count: dto.count,
+                players: []
             }
         })
+
+        if (!game.players) {
+            game.players = [];
+        }
 
         if (created) {
             const player = await this.initPlayer(playerData)
@@ -60,7 +65,7 @@ export class GameService {
             }
             game.players.push(player)
             await game.save()
-            return game
+            return player.cards
         } else {
             const existingPlayer = game.players.find(player => player.userId === dto.userId);
         
@@ -76,7 +81,7 @@ export class GameService {
             game.players.push(player);
             await game.save();
 
-            return game;
+            return player.cards;
         }
     }
 }

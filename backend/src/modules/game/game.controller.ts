@@ -3,12 +3,12 @@ import { GameService } from './game.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateGameDTO } from './dto/CreateGame';
 
-@Controller('game')
+@Controller('games')
 export class GameController {
     constructor(private readonly gameService: GameService){}
 
     @ApiTags('Games')
-    @ApiResponse({ status: 201, type: CreateGameDTO })
+    @ApiResponse({ status: 201})
     @HttpCode(201)
     @Post('create')
     create(@Body() dto: CreateGameDTO){

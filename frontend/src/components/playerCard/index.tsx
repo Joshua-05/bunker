@@ -16,7 +16,7 @@ const PlayerCard = ({player}: PlayerCardProps) => {
         <div className={style.card}>
             <div className={style.card_bio}>
                 <span>{player.username}</span><br />
-                <span>M   24</span>
+                <span>M 24</span>
             </div>
             <div className={style.card_info}>
                 <div className={style.card_infoLeft}>

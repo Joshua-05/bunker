@@ -3,8 +3,8 @@ import { IsNumber, IsString } from "class-validator";
 
 export class CreateGameDTO{
     @ApiProperty()
-    @IsNumber()
-    id_game: number;
+    @IsString()
+    id_game: string;
 
     @ApiProperty()
     @IsString()

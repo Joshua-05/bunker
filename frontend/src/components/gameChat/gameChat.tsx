@@ -17,9 +17,14 @@ interface ChatProps{
 const GameChat = (props: ChatProps) => {
     const lobbyId = props.lobbyId
     const count = props.count
-    const lobbyInfo = {lobbyId: lobbyId, count: count}   
-    
     const user = useUserStore(state => state.userStore)
+    
+    if (!user || !user.id){
+        throw new Error ('Пользователь не авторизован')
+    }
+    
+    const lobbyInfo = {lobbyId: lobbyId, userId: user.id, count: count}  
+    
     const [messages, setMessages] = useState<IMessage[]>([]);
     const messageEndRef = useRef<HTMLDivElement | null>(null);
 

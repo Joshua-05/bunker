@@ -1,9 +1,17 @@
+import { ICards } from "../../common/types/cards"
+import CardCharacteristic from "../cardCharacteristic";
 import style from "./myCardWidget.module.css"
 
-const MyCardWidget = () => {
+interface IPropsWidget {
+    cards: ICards[]
+}
+
+const MyCardWidget = ({cards}: IPropsWidget) => {
+    console.log('fuck', cards);
+    
     return(
         <div className={style.widget}>
-            my cards this
+            {cards.map(item => <CardCharacteristic card={item} key={item.id}/>)}
         </div>
     )
 }

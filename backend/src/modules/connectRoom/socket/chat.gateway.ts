@@ -29,20 +29,24 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
 
     @SubscribeMessage('joinLobby') 
-    handleJoinLobby(client: Socket, {lobbyId, count}: {lobbyId: string, count: number}): void {
+    handleJoinLobby(client: Socket, {lobbyId, userId, count}: {lobbyId: string, userId: string, count: number}): void {
         client.join(lobbyId);
         console.log(`Client ${client.id} joined lobby: ${lobbyId}`);
         if (!this.lobbyUsers[lobbyId]) {
             this.lobbyUsers[lobbyId] = new Set();
         }
-        this.lobbyUsers[lobbyId].add(client.id);
-        console.log(this.lobbyUsers[lobbyId].size,'sssssdhhhhhhhssssssssssssssssssssss', count);
+        if (this.lobbyUsers[lobbyId].has(userId)) {
+            console.log(`User ${userId} is already in the lobby.`);
+            return;
+        }
+        this.lobbyUsers[lobbyId].add(userId);
+        console.log(this.lobbyUsers[lobbyId].size, 'users in lobby:', count);
         // Проверка на полный лимит
         if (this.lobbyUsers[lobbyId].size >= count) { 
             this.server.to(lobbyId).emit('lobbyFull', { message: 'Lobby is full, starting the game!' });
             //  инициировать логику начала игры тут
         } else {
-            this.server.to(lobbyId).emit('userJoined', { sender: 'System', message: `User ${client.id} has joined the lobby.` });
+            this.server.to(lobbyId).emit('userJoined', { sender: 'System', message: `User ${userId} has joined the lobby.` });
         }
         
     }
@@ -67,11 +71,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     //     }
     // }
     @SubscribeMessage('leaveLobby') 
-    handleLeaveLobby(client: Socket, { lobbyId }: { lobbyId: string }): void {
+    handleLeaveLobby(client: Socket, { lobbyId, userId }: { lobbyId: string, userId: string}): void {
 
-    if (this.lobbyUsers[lobbyId] && this.lobbyUsers[lobbyId].has(client.id)) {
-        this.lobbyUsers[lobbyId].delete(client.id);
-        this.server.to(lobbyId).emit('userLeft', { sender: 'System', message: `User ${client.id} has left the lobby.` });
+    if (this.lobbyUsers[lobbyId] && this.lobbyUsers[lobbyId].has(userId)) {
+        this.lobbyUsers[lobbyId].delete(userId);
+        this.server.to(lobbyId).emit('userLeft', { sender: 'System', message: `User ${userId} has left the lobby.` });
         if (this.lobbyUsers[lobbyId].size === 0) {
             delete this.lobbyUsers[lobbyId];
         }
