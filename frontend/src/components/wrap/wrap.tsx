@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import style from "./style.module.css"
 import {Avatar} from "@mui/material"
-import { useUserStore } from "../../store";
+import { useUserStore } from "../../store/UserStore";
 
 function Profile() {
 	const nav = useNavigate()

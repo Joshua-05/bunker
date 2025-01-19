@@ -8,7 +8,7 @@ import GameChat from "../../components/gameChat/gameChat";
 import MyCardWidget from "../../components/myCardWidget/myCardWidget";
 import VoteWidget from "../../components/voteWidget/voteWidget";
 import { ILobbi } from "../../common/types/lobbi";
-import { useUserStore } from "../../store";
+import { useUserStore } from "../../store/UserStore";
 
 const GamePage = () => {
     const { lobbyId } = useParams();

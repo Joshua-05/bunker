@@ -3,7 +3,7 @@ import { instance } from "../../api/baseUrl";
 import { useEffect, useState } from "react";
 import { ILobbi } from "../../common/types/lobbi";
 import Chat from "../../components/chat";
-import { useUserStore } from "../../store";
+import { useUserStore } from "../../store/UserStore";
 import { IUser } from "../../common/types/auth";
 import UserInLobbyCard from "../../components/userInLobbyCard";
 import style from "./style.module.css"

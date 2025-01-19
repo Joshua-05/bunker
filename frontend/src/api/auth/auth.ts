@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../store";
+import { useUserStore } from "../../store/UserStore";
 import { instance } from "../baseUrl";
 
 const navigate = useNavigate();

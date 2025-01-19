@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import style from "./gameChat.module.css"
-import { useUserStore } from "../../store";
+import { useUserStore } from "../../store/UserStore";
 import socket from "../../utils/socket";
 
 interface IMessage {

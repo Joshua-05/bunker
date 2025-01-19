@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import { instance } from "../../api/baseUrl";
 import { AppErrors } from "../../common/errors";
-import { useUserStore } from "../../store";
+import { useUserStore } from "../../store/UserStore";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
 	const [email, setEmail] = useState("");

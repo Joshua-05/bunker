@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect } from "react"
-import { useLobbiStore, useUserStore } from "../../store"
+import { useUserStore } from "../../store/UserStore"
+import { useLobbiStore } from "../../store/LobbiStore"
 import { instance } from "../../api/baseUrl"
 import style from "./style.module.css"
 import { Link, useNavigate } from "react-router-dom"
