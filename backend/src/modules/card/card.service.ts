@@ -27,4 +27,32 @@ export class CardService {
             ]
         });
     }
+
+    async dealingCards() {
+        const cardTypes = {
+            "Пол": 1,
+            "Возраст": 1,
+            "Профессия": 1,
+            "Здоровье": 1,
+            "Хобби": 1,
+            "Фобия": 1,
+            "Багаж": 1,
+            "Факт": 2
+        };
+        const selectedCards: Card[] = [];
+        
+        for (const [type, count] of Object.entries(cardTypes)) {
+            const cards = await this.cardRepository.findAll({
+                where: { type }
+            });
+            
+            if (cards.length > 0) {
+                const shuffled = cards.sort(() => 0.5 - Math.random());
+                const randomCards = shuffled.slice(0, count);
+                selectedCards.push(...randomCards);
+            }
+        }
+
+        return selectedCards
+    }
 }

@@ -13,6 +13,9 @@ import { ConnectRoomModule } from '../connectRoom/connect-room.module';
 import { CardModule } from '../card/card.module';
 import { Card } from '../card/models/card.model';
 import { Combination } from '../card/models/combination.model';
+import { GameModule } from '../game/game.module';
+import { Game } from '../game/models/game.model';
+import { Player } from '../game/models/player.model';
 
 @Module({
   imports: [
@@ -32,7 +35,7 @@ import { Combination } from '../card/models/combination.model';
         database: configservice.get('db_name'),
         synchronize: true,
         autoLoadModels: true,
-        models: [User, Lobbi, Card, Combination]
+        models: [User, Lobbi, Card, Combination, Game, Player]
       })
     }),
     UserModule,
@@ -41,6 +44,7 @@ import { Combination } from '../card/models/combination.model';
     LobbiModule,
     ConnectRoomModule,
     CardModule,
+    GameModule,
   ],
   controllers: [],
   providers: [],

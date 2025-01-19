@@ -9,5 +9,6 @@ import { Combination } from './models/combination.model';
   imports: [SequelizeModule.forFeature([Card])],
   controllers: [CardController],
   providers: [CardService],
+  exports: [CardService]
 })
 export class CardModule {}

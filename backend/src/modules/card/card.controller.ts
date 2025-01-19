@@ -22,5 +22,13 @@ export class CardController {
     getAll(){
         return this.cardService.findAllCard()
     }
+
+    @ApiTags('Cards')
+    @ApiResponse({ status: 200 })
+    @HttpCode(200)
+    @Get('getCollection')
+    getCollection(){
+        return this.cardService.dealingCards()
+    }
     
 }
