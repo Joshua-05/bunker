@@ -94,7 +94,7 @@ const GamePage = () => {
             </div>
             <div className={style.table}>
                 <div className={style.cardList}>
-                    {userInLobby.length > 0 ? userInLobby.map(item => <PlayerCard player={item} key={item.id} />) : <p>нет игроков</p>}
+                    {cards && userInLobby.length > 0 ? userInLobby.map(item => <PlayerCard cards={cards} player={item} key={item.id} />) : <p>нет игроков</p>}
                 </div>
                 <div className={style.activeZona}>
                     <div className={style.myCard}>

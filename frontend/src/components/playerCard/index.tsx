@@ -1,38 +1,49 @@
-import { useState } from "react"
-import { IUser } from "../../common/types/auth"
-import style from "./style.module.css"
+import { IUser } from "../../common/types/auth";
+import style from "./style.module.css";
+import { ICards } from "../../common/types/cards";
 
 interface PlayerCardProps {
-    player: IUser
+    player: IUser;
+    cards: ICards[];
 }
 
-const PlayerCard = ({player}: PlayerCardProps) => {
-    const [prof, setProf] = useState('Профессия')
+const PlayerCard = ({ player, cards }: PlayerCardProps) => {
+    const sexCard = cards.find(card => card.type === 'Пол');
+    const ageCard = cards.find(card => card.type === 'Возраст');
+    const professionCard = cards.find(card => card.type === 'Профессия');
+    const healthCard = cards.find(card => card.type === 'Здоровья');
+    const hobbyCard = cards.find(card => card.type === 'Хобби');
+    const phobiaCard = cards.find(card => card.type === 'Фобия');
+    const luggageCard = cards.find(card => card.type === 'Багаж');
+    const factCards = cards.filter(card => card.type === 'Факт');
 
-    const pok = () => {
-        setProf(player.email)
-    }
-    return(
+    return (
         <div className={style.card}>
             <div className={style.card_bio}>
-                <span>{player.username}</span><br />
-                <span>M 24</span>
+                <span className={style.username}>{player.username}</span>
+                <span className={style.sex}>{sexCard ? sexCard.name : 'Пол'}</span>
+                <span className={style.age}>{ageCard ? ageCard.name : 'Возраст'}</span>
             </div>
             <div className={style.card_info}>
                 <div className={style.card_infoLeft}>
-                    <span onClick={pok}>{prof}</span><br />
-                    <span>Здоровье</span><br />
-                    <span>Хобби</span><br />
-                    <span>Фобия</span>
+                    <span>{professionCard ? professionCard.name : 'Нет профессии'}</span>
+                    <span>{healthCard ? healthCard.name : 'Нет данных о здоровье'}</span>
+                    <span>{hobbyCard ? hobbyCard.name : 'Нет хобби'}</span>
+                    <span>{phobiaCard ? phobiaCard.name : 'Нет фобии'}</span>
                 </div>
                 <div className={style.card_infoRight}>
-                    <span>Багаж</span><br />
-                    <span>Факт 1</span><br />
-                    <span>Факт 2</span>
+                    <span>{luggageCard ? luggageCard.name : 'Нет багажа'}</span>
+                    {factCards.length > 0 ? (
+                        factCards.map((fact, index) => (
+                            <span key={index}>{fact.name}</span>
+                        ))
+                    ) : (
+                        <span>Нет фактов</span>
+                    )}
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default PlayerCard
+export default PlayerCard;
