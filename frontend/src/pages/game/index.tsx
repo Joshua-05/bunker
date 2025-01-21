@@ -9,20 +9,31 @@ import MyCardWidget from "../../components/myCardWidget/myCardWidget";
 import VoteWidget from "../../components/voteWidget/voteWidget";
 import { ILobbi } from "../../common/types/lobbi";
 import { useUserStore } from "../../store/UserStore";
+import { useGameStore } from "../../store/GameStore";
+import { IOpenCards } from "../../common/types/game/game";
+import { ICards } from "../../common/types/cards";
 
 const GamePage = () => {
     const { lobbyId } = useParams();
     const nav = useNavigate();
     const user = useUserStore(state => state.userStore);
+
+    if (!user || !user.id) {
+        throw new Error('Пользователь не авторизован');
+    }
+
+    const addCards = useGameStore(state => state.showCard);
     
     const [userInLobby, setUserInLobby] = useState<IUser[]>([]);
     const [lobbi, setLobbi] = useState<ILobbi | null>(null);
-    const [cards, setCards] = useState(null);
+    const [isCards, setCards] = useState<ICards[]>([]);
     const [openMyCard, setOpenMyCard] = useState<boolean>(false);
     const [openVote, setOpenVote] = useState<boolean>(false);
     const [turnToWalk, setTurnToWalk] = useState<string>('blya');
+    const delSt = useGameStore(state => state.reset)
 
     const exitLobby = () => {
+        delSt()
         nav('/lobby');
     };
 
@@ -73,6 +84,21 @@ const GamePage = () => {
         }
     }, [lobbi]);
 
+    useEffect(() => {
+        if (isCards.length > 0) {
+            const filteredCards = isCards.map(card => ({
+                type: card.type,
+                name: card.name
+            }));
+
+            const dataForStore: IOpenCards = {
+                userId: user.id,
+                cards: filteredCards
+            };
+            addCards(dataForStore);
+        }
+    }, [isCards, user.id, addCards]);
+
     return (
         <>
             <div className={style.head}>
@@ -94,7 +120,7 @@ const GamePage = () => {
             </div>
             <div className={style.table}>
                 <div className={style.cardList}>
-                    {cards && userInLobby.length > 0 ? userInLobby.map(item => <PlayerCard cards={cards} player={item} key={item.id} />) : <p>нет игроков</p>}
+                    {userInLobby.length > 0 ? userInLobby.map(item => <PlayerCard player={item} key={item.id} />) : <p>нет игроков</p>}
                 </div>
                 <div className={style.activeZona}>
                     <div className={style.myCard}>
@@ -110,7 +136,7 @@ const GamePage = () => {
                     </div>
                 </div>
             </div>
-            {cards && openMyCard && <MyCardWidget cards={cards} />}
+            {openMyCard && <MyCardWidget cards={isCards} />}
             {openVote && <VoteWidget users={userInLobby} />}
         </>
     );
