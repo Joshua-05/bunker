@@ -10,7 +10,7 @@ export const Header = ({ turnUser, count, exitLobby }: IHeadProps) => {
     return (
         <div className={style.head}>
             <div className={style.head_history}>
-                <p>Жоская предыстория апокалипсиса. По типу открытия другого измерения, ядерная война, восстание зомби и т. д.</p>
+                <p>Россия разбомбила весь мир, а Вас признали иноагентом и депортировали из страны. Удачи найти укрытие в разаренных пустошах зарубежья</p>
             </div>
             <div className={style.head_logo}>
                 <p>Ход игрока {turnUser}</p>

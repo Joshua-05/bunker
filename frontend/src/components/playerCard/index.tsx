@@ -30,16 +30,16 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
             </div>
             <div className={style.card_info}>
                 <div className={style.card_infoLeft}>
-                    <span>{professionCard ? professionCard.name : 'Нет профессии'}</span>
-                    <span>{healthCard ? healthCard.name : 'Нет данных о здоровье'}</span>
-                    <span>{hobbyCard ? hobbyCard.name : 'Нет хобби'}</span>
-                    <span>{phobiaCard ? phobiaCard.name : 'Нет фобии'}</span>
+                    <span>{professionCard ? <b>{professionCard.name}</b> : 'Нет профессии'}</span>
+                    <span>{healthCard ? <b>{healthCard.name}</b> : 'Нет данных о здоровье'}</span>
+                    <span>{hobbyCard ? <b>{hobbyCard.name}</b> : 'Нет хобби'}</span>
+                    <span>{phobiaCard ? <b>{phobiaCard.name}</b> : 'Нет фобии'}</span>
                 </div>
                 <div className={style.card_infoRight}>
-                    <span>{luggageCard ? luggageCard.name : 'Нет багажа'}</span>
+                    <span>{luggageCard ? <b>{luggageCard.name}</b> : 'Нет багажа'}</span>
                     {factCards && factCards.length > 0 ? (
                         factCards.map((fact, index) => (
-                            <span key={index}>{fact.name}</span>
+                            <span key={index}><b>{fact.name}</b></span>
                         ))
                     ) : (
                         <span>Нет фактов</span>

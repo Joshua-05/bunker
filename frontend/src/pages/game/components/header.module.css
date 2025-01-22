@@ -4,11 +4,11 @@
     justify-content: center;
     grid-template-columns: 600px 400px 300px 300px;
     grid-template-rows: repeat(1, 160px);
-    gap: 20px; /* Добавляем пробел между элементами */
+    gap: 20px; 
     
-    background-color: #ffffff; /* Белый фон */
-    border-radius: 10px; /* Закругленные углы */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    background-color: #ffffff;
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .head_history,
@@ -18,7 +18,7 @@
     text-align: center;
     box-sizing: border-box;
     border: 1px solid #000; 
-    border-radius: 8px; /* Закругленные углы для элементов */
-    padding: 5px; /* Отступы внутри элементов */
-    background-color: #f9f9f9; /* Светлый фон для элементов */
+    border-radius: 8px; 
+    padding: 5px; 
+    background-color: #f9f9f9; 
 }

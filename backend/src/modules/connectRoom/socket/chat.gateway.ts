@@ -55,10 +55,8 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         }
         this.lobbyUsers[lobbyId].add(userId);
         console.log(this.lobbyUsers[lobbyId].size, 'users in lobby:', count);
-        // Проверка на полный лимит
         if (this.lobbyUsers[lobbyId].size >= count) { 
             this.server.to(lobbyId).emit('lobbyFull', { message: 'Lobby is full, starting the game!' });
-            //  инициировать логику начала игры тут
         } else {
             this.server.to(lobbyId).emit('userJoined', { sender: 'System', message: `User ${userId} has joined the lobby.` });
         }
@@ -98,7 +96,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     @SubscribeMessage('openCard')
     handleOpenCard(client: Socket, card: IOpenCards): void {
-        console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
+        // console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
         const id = card.gameId.toString()
         
         client.to(id).emit('userOpenCard', {

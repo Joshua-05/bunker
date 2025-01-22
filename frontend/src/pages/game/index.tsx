@@ -15,6 +15,7 @@ import socket from "../../utils/socket";
 import { Header } from "./components/header";
 import { fetchDealingCards } from "../../api/game/DealingCards";
 import { fetchLobbiData } from "../../api/game/LobbiData";
+import { Box, Button, Modal, Typography } from "@mui/material";
 
 
 const GamePage = () => {
@@ -35,11 +36,25 @@ const GamePage = () => {
     const [lobbi, setLobbi] = useState<ILobbi | null>(null);
     const [openMyCard, setOpenMyCard] = useState<boolean>(false);
     const [openVote, setOpenVote] = useState<boolean>(false);
-    const [turnToWalk, setTurnToWalk] = useState<ITurnToWalk>();
+    // const [turnToWalk, setTurnToWalk] = useState<ITurnToWalk | null>(null);
+    // const [currentPlayer, setCurrentPlayer] = useState<ITurnToWalk | null>(null);
     const [selectedCard, setSelectedCard] = useState<ICardsIsOpen>();
     const delSt = useGameStore(state => state.reset)
 
-    const [testOpen, setTestOpen] = useState<IOpenCards | string>()
+    const [open, setOpen] = useState(false);
+    
+
+    const styles = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      };
 
     const exitLobby = async() => {
         await instance.post('games/leave', {userId: user.id})
@@ -72,36 +87,48 @@ const GamePage = () => {
     }, [lobbi, user, addCards]);
 
     const handleConfirm = () => {
-        setTurnToWalk(turnToWalk)
+        handleClose()
         const card = {
             gameId: lobbyId,
             userId: user.id,
             cards: selectedCard
         }
         socket.emit('openCard', card)
+
+        // setCurrentPlayer({ userId: user.id, username: user.username });
+
+        // const currentPlayerIndex = userInLobby.findIndex(p => p.id === user.id);
+        // const nextPlayerIndex = (currentPlayerIndex + 1) % userInLobby.length;
+
+        // const nextPlayer = userInLobby[nextPlayerIndex];
+        // setTurnToWalk({ userId: nextPlayer.id, username: nextPlayer.username });
+        setOpenMyCard(false)
+        setSelectedCard({type: '', name: ''})
     }
 
     useEffect(() => {
         socket.on('userOpenCard', (ert : IOpenCards) => {
             addCards(ert)
             // setTestOpen(ert)
-            console.log('Прилет с другого клиента', ert);
+            // console.log('Прилет с другого клиента', ert);
             
         })
+        // socket.on('userLeft', fetch)
         return(() => {
             socket.off('userOpenCard')
         })
     }, [])
     
-    console.log("All cards: ",  openCa);
+    // console.log("All cards: ",  openCa);
     // console.log('Its may card:', playerCard);
-    console.log('Это выбранная:', selectedCard);
-    
+    // console.log('Это выбранная:', selectedCard);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     
 
     return (
         <>
-            <Header exitLobby={exitLobby} turnUser={turnToWalk?.username} count={lobbi?.count}/>
+            <Header exitLobby={exitLobby} turnUser={user.username} count={lobbi?.count}/>
             <div className={style.table}>
                 <div className={style.cardList}>
                     {userInLobby.length > 0 ? userInLobby.map(item => <PlayerCard player={item} key={item.id} />) : <p>нет игроков</p>}
@@ -111,7 +138,7 @@ const GamePage = () => {
                         <button onClick={() => setOpenMyCard(!openMyCard)}>My cards</button>
                     </div>
                     <div className={style.buttons}>
-                        <button onClick={() => handleConfirm()}>Потвердить</button><br />
+                        <button onClick={handleOpen}>Потвердить</button><br />
                         <button onClick={() => setOpenVote(!openVote)}>Голосовать</button><br />
                         <button>Журнал?</button>
                     </div>
@@ -123,6 +150,25 @@ const GamePage = () => {
             {openMyCard && <MyCardWidget setSelectedCard={setSelectedCard} cards={playerCard} />}
             {openVote && <VoteWidget users={userInLobby} />}
             {selectedCard && <p>{selectedCard.type}</p>}
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                >
+                <Box sx={styles}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Вы уверены
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Другим откроется Ваш <br />
+                        <strong>{selectedCard?.type}: {selectedCard?.name}</strong>
+                    </Typography>
+                    <Button onClick={() => handleConfirm()}>Да</Button>
+                    <Button onClick={handleClose}>Нет</Button>
+                </Box>
+            </Modal>
         </>
     );
 };
