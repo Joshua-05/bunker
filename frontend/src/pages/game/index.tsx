@@ -17,6 +17,8 @@ const GamePage = () => {
     const { lobbyId } = useParams();
     const nav = useNavigate();
     const user = useUserStore(state => state.userStore);
+    const addPlayerCard = useGameStore(state => state.addPlayerCards)
+    const playerCard = useGameStore(state => state.playerCards)
 
     if (!user || !user.id) {
         throw new Error('Пользователь не авторизован');
@@ -32,7 +34,8 @@ const GamePage = () => {
     const [turnToWalk, setTurnToWalk] = useState<string>('blya');
     const delSt = useGameStore(state => state.reset)
 
-    const exitLobby = () => {
+    const exitLobby = async() => {
+        await instance.post('games/leave', {userId: user.id})
         delSt()
         nav('/lobby');
     };
@@ -68,7 +71,10 @@ const GamePage = () => {
         try {
             const response = await instance.post('games/create', data);
             console.log(response.data);
-            setCards(response.data);
+            if (response.data !== ''){
+                setCards(response.data);
+                addPlayerCard(response.data)
+            }
         } catch (error) {
             console.error('Ошибка при создании игры:', error);
         }
@@ -86,7 +92,7 @@ const GamePage = () => {
 
     useEffect(() => {
         if (isCards.length > 0) {
-            const filteredCards = isCards.map(card => ({
+            const filteredCards =isCards.map(card => ({
                 type: card.type,
                 name: card.name
             }));
@@ -136,7 +142,7 @@ const GamePage = () => {
                     </div>
                 </div>
             </div>
-            {openMyCard && <MyCardWidget cards={isCards} />}
+            {openMyCard && <MyCardWidget cards={playerCard} />}
             {openVote && <VoteWidget users={userInLobby} />}
         </>
     );

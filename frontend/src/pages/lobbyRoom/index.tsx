@@ -26,8 +26,8 @@ const LobbyRoomPage = () => {
             action: 'descrement',
             userId: user.id
         }),
-        socket.emit('leaveLobby', {lobbyId: lobbyId, userId: user.id})
         nav(`/lobby`)
+        socket.emit('leaveLobby', {lobbyId: lobbyId, userId: user.id})
     }
 
     const ClickEnter = async() => {
