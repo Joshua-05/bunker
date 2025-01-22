@@ -92,7 +92,7 @@ const LobbyRoomPage = () => {
                             (<p>Нет подключенных</p>)}
                         </div>
                         </div>
-                        {console.log(typeof(lobbi.count))}
+                        {/* {console.log(typeof(lobbi.count))} */}
                         <Chat lobbyId = {lobbyId} count = {lobbi.count}/>
                     </>
                 ) : (

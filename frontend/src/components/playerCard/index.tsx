@@ -10,14 +10,14 @@ const PlayerCard = ({ player }: PlayerCardProps) => {
     const cards = useGameStore(state => state.openCards)
     const exist = cards.find(item => item.userId === player.id)
     
-    const sexCard = exist?.cards.find(card => card.type === 'Пол');
-    const ageCard = exist?.cards.find(card => card.type === 'Возраст');
-    const professionCard = exist?.cards.find(card => card.type === 'Профессия');
-    const healthCard = exist?.cards.find(card => card.type === 'Здоровья');
-    const hobbyCard = exist?.cards.find(card => card.type === 'Хобби');
-    const phobiaCard = exist?.cards.find(card => card.type === 'Фобия');
-    const luggageCard = exist?.cards.find(card => card.type === 'Багаж');
-    const factCards = exist?.cards.filter(card => card.type === 'Факт');
+    const sexCard = exist?.cards && Array.isArray(exist.cards) ? exist.cards.find(card => card.type === 'Пол') : null;
+    const ageCard = exist?.cards && Array.isArray(exist.cards) ? exist.cards.find(card => card.type === 'Возраст') : null;
+    const professionCard = exist?.cards && Array.isArray(exist.cards) ? exist.cards.find(card => card.type === 'Профессия') : null;
+    const healthCard = exist?.cards && Array.isArray(exist.cards) ? exist.cards.find(card => card.type === 'Здоровья') : null;
+    const hobbyCard = exist?.cards && Array.isArray(exist.cards) ? exist.cards.find(card => card.type === 'Хобби') : null;
+    const phobiaCard = exist?.cards && Array.isArray(exist.cards) ? exist.cards.find(card => card.type === 'Фобия') : null;
+    const luggageCard = exist?.cards && Array.isArray(exist.cards) ? exist.cards.find(card => card.type === 'Багаж') : null;
+    const factCards = exist?.cards && Array.isArray(exist.cards) ? exist.cards.filter(card => card.type === 'Факт') : [];
     
     
 

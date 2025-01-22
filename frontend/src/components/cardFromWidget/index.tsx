@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { ICards } from "../../common/types/cards";
 import style from "./style.module.css";
+import { ICardsIsOpen } from "../../common/types/game/game";
 
 interface CardCharacteristicProps {
-    card: ICards;
+    card: ICards,
+    setSelectedCard: (card: ICardsIsOpen) => void
 }
 
-const CardFromWidget = ({ card }: CardCharacteristicProps) => {
+const CardFromWidget = ({setSelectedCard, card }: CardCharacteristicProps) => {
     const [hovered, setHovered] = useState(false);
 
     return (
@@ -14,6 +16,7 @@ const CardFromWidget = ({ card }: CardCharacteristicProps) => {
             className={style.card} 
             onMouseEnter={() => setHovered(true)} 
             onMouseLeave={() => setHovered(false)}
+            onClick={() => setSelectedCard({type: card.type, name: card.name})}
         >
             <p>{card.type}</p>
             <p>{card.name}</p>

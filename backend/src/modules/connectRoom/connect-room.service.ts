@@ -54,13 +54,6 @@ export class ConnectRoomService {
                 )
                 lobbi.current -= 1
                 await lobbi.$remove('users', user)
-                // const deleteUserToLobbi = await this.userRepository.findAll({where: {
-                //     userId: userId,
-                //     lobbyId: id
-                // } })
-                // if (deleteUserToLobbi) {
-                //     await deleteUserToLobbi.map(item => item.destroy());
-                // }
                 if (lobbi.current === 0){
                     this.lobbyListGateway.server.emit('lobbyDeleted', lobbi.id)
                     await lobbi.destroy()

@@ -1,33 +1,3 @@
-.head{
-    margin-top: 20px;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 600px 400px 300px 300px;
-    grid-template-rows: repeat(1, 160px);
-}
-
-.head_history{
-    box-sizing: border-box;
-    border: 1px solid black;
-}
-
-.head_logo{
-    padding-top: 20px;
-    box-sizing: border-box;
-    border: 1px solid black;
-    text-align: center;
-}
-
-.head_info{
-    box-sizing: border-box;
-    border: 1px solid black;
-}
-
-.head_content{
-    box-sizing: border-box;
-    border: 1px solid black;
-}
-
 .table{
     display: flex;
     padding-top: 20px;
@@ -43,6 +13,7 @@
 
 .activeZona{
     border: 1px solid black;
+    border-radius: 8px;
     min-width: 300px;
 }
 
@@ -53,10 +24,21 @@
 .myCard button {
     min-width: 300px;
     min-height: 100px;
+    /* border: none; */
+    font-size: 32px;
+    /* background-color: rgb(242, 252, 156); */
 }
 
 .buttons{
+    padding-top: 10px;
     height: 200px;
+}
+
+.buttons button{
+    min-width: 300px;
+    height: 50px;
+    margin-bottom: 4px;
+    font-size: 20px;
 }
 
 .chat{

@@ -10,8 +10,12 @@ import VoteWidget from "../../components/voteWidget/voteWidget";
 import { ILobbi } from "../../common/types/lobbi";
 import { useUserStore } from "../../store/UserStore";
 import { useGameStore } from "../../store/GameStore";
-import { IOpenCards } from "../../common/types/game/game";
-import { ICards } from "../../common/types/cards";
+import { ICardsIsOpen, IOpenCards, ITurnToWalk } from "../../common/types/game/game";
+import socket from "../../utils/socket";
+import { Header } from "./components/header";
+import { fetchDealingCards } from "../../api/game/DealingCards";
+import { fetchLobbiData } from "../../api/game/LobbiData";
+
 
 const GamePage = () => {
     const { lobbyId } = useParams();
@@ -25,14 +29,17 @@ const GamePage = () => {
     }
 
     const addCards = useGameStore(state => state.showCard);
+    const openCa = useGameStore(state => state.openCards)
     
     const [userInLobby, setUserInLobby] = useState<IUser[]>([]);
     const [lobbi, setLobbi] = useState<ILobbi | null>(null);
-    const [isCards, setCards] = useState<ICards[]>([]);
     const [openMyCard, setOpenMyCard] = useState<boolean>(false);
     const [openVote, setOpenVote] = useState<boolean>(false);
-    const [turnToWalk, setTurnToWalk] = useState<string>('blya');
+    const [turnToWalk, setTurnToWalk] = useState<ITurnToWalk>();
+    const [selectedCard, setSelectedCard] = useState<ICardsIsOpen>();
     const delSt = useGameStore(state => state.reset)
+
+    const [testOpen, setTestOpen] = useState<IOpenCards | string>()
 
     const exitLobby = async() => {
         await instance.post('games/leave', {userId: user.id})
@@ -40,90 +47,61 @@ const GamePage = () => {
         nav('/lobby');
     };
 
-    const fetchLobbiData = async () => {
-        try {
-            const [resUser, res] = await Promise.all([
-                instance.get(`room/getUserLobbi/${lobbyId}`),
-                instance.get(`lobbis/getOne/${lobbyId}`)
-            ]);
-            setUserInLobby(resUser.data);
-            setLobbi(res.data);
-        } catch (error) {
-            console.error("Ошибка получения данных лобби:", error);
-            exitLobby();
-        }
-    };
-
-    const fetchDealingCards = async () => {
-        const data = {
-            id_game: lobbyId,
-            name: lobbi?.name,
-            count: lobbi?.count,
-            username: user?.username,
-            userId: user?.id
-        };
-
-        if (!data.name || data.count === undefined) {
-            console.error('Недостаточно данных для создания игры:', data);
-            return;
-        }
-
-        try {
-            const response = await instance.post('games/create', data);
-            console.log(response.data);
-            if (response.data !== ''){
-                setCards(response.data);
-                addPlayerCard(response.data)
-            }
-        } catch (error) {
-            console.error('Ошибка при создании игры:', error);
-        }
-    };
+    
 
     useEffect(() => {
-        fetchLobbiData();
-    }, [lobbyId]);
+        fetchLobbiData({
+            lobbyId,
+            setUserInLobby,
+            setLobbi,
+            exitLobby,
+        })
+    }, [lobbyId, user]);
 
     useEffect(() => {
         if (lobbi) {
-            fetchDealingCards();
+            fetchDealingCards({
+                lobbyId,
+                lobbi,
+                user,
+                addPlayerCard,
+                addCards,
+            })
         }
-    }, [lobbi]);
+        
+    }, [lobbi, user, addCards]);
+
+    const handleConfirm = () => {
+        setTurnToWalk(turnToWalk)
+        const card = {
+            gameId: lobbyId,
+            userId: user.id,
+            cards: selectedCard
+        }
+        socket.emit('openCard', card)
+    }
 
     useEffect(() => {
-        if (isCards.length > 0) {
-            const filteredCards =isCards.map(card => ({
-                type: card.type,
-                name: card.name
-            }));
-
-            const dataForStore: IOpenCards = {
-                userId: user.id,
-                cards: filteredCards
-            };
-            addCards(dataForStore);
-        }
-    }, [isCards, user.id, addCards]);
+        socket.on('userOpenCard', (ert : IOpenCards) => {
+            addCards(ert)
+            // setTestOpen(ert)
+            console.log('Прилет с другого клиента', ert);
+            
+        })
+        return(() => {
+            socket.off('userOpenCard')
+        })
+    }, [])
+    
+    console.log("All cards: ",  openCa);
+    // console.log('Its may card:', playerCard);
+    console.log('Это выбранная:', selectedCard);
+    
+    
 
     return (
         <>
-            <div className={style.head}>
-                <div className={style.head_history}>
-                    Жоская предыстория апокалипсиса. По типу открытия другого измерения, ядерная война, восстание зомби и тд
-                </div>
-                <div className={style.head_logo}>
-                    Ход игрока {turnToWalk} <br />
-                    0:30 <br />
-                    <button onClick={exitLobby}>Сдаться</button> <br />
-                    {lobbi?.count}
-                </div>
-                <div className={style.head_info}>
-                    В бункере есть кухня и запас еды на 1.5 года. Арсенал с оружием. Медпункт но с запертой дверью. Пособия по земледелию
-                </div>
-                <div className={style.head_content}>
-                    Продолжительность 3 года. Бункер 400 м^2. Тут места на 5 человек
-                </div>
-            </div>
+            <Header exitLobby={exitLobby} turnUser={turnToWalk?.username} count={lobbi?.count}/>
             <div className={style.table}>
                 <div className={style.cardList}>
                     {userInLobby.length > 0 ? userInLobby.map(item => <PlayerCard player={item} key={item.id} />) : <p>нет игроков</p>}
@@ -133,17 +111,18 @@ const GamePage = () => {
                         <button onClick={() => setOpenMyCard(!openMyCard)}>My cards</button>
                     </div>
                     <div className={style.buttons}>
-                        <button onClick={() => setOpenVote(!openVote)}>Голосовать</button>
+                        <button onClick={() => handleConfirm()}>Потвердить</button><br />
+                        <button onClick={() => setOpenVote(!openVote)}>Голосовать</button><br />
                         <button>Журнал?</button>
-                        <button onClick={() => setTurnToWalk('Другой')}>Потвердить</button>
                     </div>
                     <div className={style.chat}>
-                        <GameChat lobbyId={lobbyId} count={userInLobby.length} />
+                        {lobbi && <GameChat lobbyId={lobbyId} count={lobbi.count} />}
                     </div>
                 </div>
             </div>
-            {openMyCard && <MyCardWidget cards={playerCard} />}
+            {openMyCard && <MyCardWidget setSelectedCard={setSelectedCard} cards={playerCard} />}
             {openVote && <VoteWidget users={userInLobby} />}
+            {selectedCard && <p>{selectedCard.type}</p>}
         </>
     );
 };

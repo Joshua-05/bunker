@@ -30,7 +30,7 @@ const GameChat = (props: ChatProps) => {
 
     useEffect(() => {
         if (lobbyId) {
-            console.log(count);
+            // console.log(count);
             socket.emit('joinLobby', lobbyInfo); 
 
             socket.on('messages', (message) => {
@@ -44,6 +44,8 @@ const GameChat = (props: ChatProps) => {
             };
         }
     }, [lobbyId])
+
+    
 
     useEffect(() => {
         if (messageEndRef.current) {

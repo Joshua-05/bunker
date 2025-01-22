@@ -2,6 +2,17 @@ import { WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDiscon
 import { Server, Socket } from 'socket.io';
 import { UserDTO } from '../dto';
 
+export interface ICardsIsOpen {
+    type: string;
+    name: string;
+}
+
+export interface IOpenCards {
+    gameId: number;
+    userId: number;
+    cards: ICardsIsOpen[];
+}
+
 @WebSocketGateway({
     cors: {
       origin: ['http://localhost:5173'],
@@ -9,7 +20,10 @@ import { UserDTO } from '../dto';
       credentials: true,                 
     },
   })
+
+  
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
+    
     @WebSocketServer()
     server: Server;
 
@@ -80,5 +94,16 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
             delete this.lobbyUsers[lobbyId];
         }
     }
-}
+    }
+
+    @SubscribeMessage('openCard')
+    handleOpenCard(client: Socket, card: IOpenCards): void {
+        console.log('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
+        const id = card.gameId.toString()
+        
+        client.to(id).emit('userOpenCard', {
+            userId: card.userId,
+            cards: card.cards
+        });
+    }
 }

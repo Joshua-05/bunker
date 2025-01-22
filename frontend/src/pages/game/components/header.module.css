@@ -1,0 +1,24 @@
+.head{
+    margin-top: 20px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 600px 400px 300px 300px;
+    grid-template-rows: repeat(1, 160px);
+    gap: 20px; /* Добавляем пробел между элементами */
+    
+    background-color: #ffffff; /* Белый фон */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+.head_history,
+.head_logo,
+.head_info,
+.head_content {
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid #000; 
+    border-radius: 8px; /* Закругленные углы для элементов */
+    padding: 5px; /* Отступы внутри элементов */
+    background-color: #f9f9f9; /* Светлый фон для элементов */
+}

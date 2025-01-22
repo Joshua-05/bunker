@@ -64,8 +64,8 @@ export class GameService {
             game.players = [];
         }
 
-        console.log('Game data:', game);
-        console.log('Players in game before adding:', game.players);
+        // console.log('Game data:', game);
+        // console.log('Players in game before adding:', game.players);
 
         if (created) {
             console.log('игра создается');
@@ -74,7 +74,7 @@ export class GameService {
             console.log('впервые регаем его, он первый');
             game.players.push(player)
             await game.save()
-            console.log('Players in game before adding222222:', game.players);
+            // console.log('Players in game before adding222222:', game.players);
             return player.cards
         } else {
             const existingPlayer = game.players.find(player => player.userId === dto.userId);
@@ -94,7 +94,7 @@ export class GameService {
             console.log('Регаем игрока');
             game.players.push(player);
             await game.save();
-            console.log('Players in game before adding3333:', game.players);
+            // console.log('Players in game before adding3333:', game.players);
 
             console.log('_____________________________________________________________________________________________');
             return player.cards;

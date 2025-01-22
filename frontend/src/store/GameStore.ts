@@ -11,11 +11,13 @@ export const useGameStore = create<IGameStore>()(persist((set, get) => ({
     playerCards: [],
     showCard: (card: IOpenCards) => {
         const { openCards } = get();
+        const cardsToAdd = Array.isArray(card.cards) ? card.cards : [card.cards];
+    
         const updatedCards = openCards.map(item => {
             if (item.userId === card.userId) {
                 return {
                     ...item,
-                    cards: [...item.cards, ...card.cards],
+                    cards: [...item.cards, ...cardsToAdd], 
                 };
             }
             return item; 
@@ -23,9 +25,14 @@ export const useGameStore = create<IGameStore>()(persist((set, get) => ({
     
         const userExists = openCards.some(item => item.userId === card.userId);
     
+        
         if (!userExists) {
-            updatedCards.push(card);
+            updatedCards.push({
+                userId: card.userId,
+                cards: cardsToAdd, 
+            });
         }
+    
         set({ openCards: updatedCards });
     },
     addPlayerCards: (cards: ICards[]) => {
